@@ -1,0 +1,12 @@
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\bin\Debug\net6.0\PhoneDirectoryLibrary.deps.json
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\bin\Debug\net6.0\PhoneDirectoryLibrary.dll
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\bin\Debug\net6.0\PhoneDirectoryLibrary.pdb
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\PhoneDirectoryLibrary.csproj.AssemblyReference.cache
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\PhoneDirectoryLibrary.GeneratedMSBuildEditorConfig.editorconfig
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\PhoneDirectoryLibrary.AssemblyInfoInputs.cache
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\PhoneDirectoryLibrary.AssemblyInfo.cs
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\PhoneDirectoryLibrary.csproj.CoreCompileInputs.cache
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\PhoneDirectoryLibrary.dll
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\refint\PhoneDirectoryLibrary.dll
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\PhoneDirectoryLibrary.pdb
+M:\Documents\Coding\C#\projects\PhoneDirectory\PhoneDirectory\PhoneDirectoryLibrary\obj\Debug\net6.0\ref\PhoneDirectoryLibrary.dll
