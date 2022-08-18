@@ -6,7 +6,7 @@
         {
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddMemoryCache();
+            builder.Services.AddMemoryCache();8
         }
     }
 }

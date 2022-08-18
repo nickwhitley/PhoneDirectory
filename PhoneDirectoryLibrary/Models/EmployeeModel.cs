@@ -11,14 +11,16 @@ namespace PhoneDirectoryLibrary.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        public string PhoneMain { get; set; }
-        public string PhoneMobile { get; set; }
-        public int Extension { get; set; }
-        public string Notes { get; set; }
-        public int TitleId { get; set; }
-        public int DepartmentId { get; set; }
-        public int SupervisorId { get; set; }
+#nullable enable
+        public string? PhoneMain { get; set; }
+        public string? PhoneMobile { get; set; }
+        public int? Extension { get; set; }
+        public string? Notes { get; set; }
+        public TitleModel? Title { get; set; }
+        public DepartmentModel? Department{ get; set; }
+        public EmployeeModel? Supervisor { get; set; }
         [EmailAddress]
-        public string Email { get; set; }
+        public string? Email { get; set; }
+#nullable disable
     }
 }
