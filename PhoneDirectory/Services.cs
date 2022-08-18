@@ -1,4 +1,6 @@
-﻿namespace PhoneDirectory
+﻿using PhoneDirectoryLibrary.Data.Interfaces;
+
+namespace PhoneDirectory
 {
     public static class Services
     {
@@ -6,7 +8,12 @@
         {
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddMemoryCache();8
+            builder.Services.AddMemoryCache();
+            builder.Services.AddTransient<ISQLDataAccess, SQLDataAccess>();
+            builder.Services.AddTransient<IDataFactory, DataFactory>();
+            builder.Services.AddTransient<IEmployeeData, EmployeeData>();
+            builder.Services.AddTransient<ITitleData, TitleData>();
+            builder.Services.AddTransient<IDepartmentData, DepartmentData>();
         }
     }
 }

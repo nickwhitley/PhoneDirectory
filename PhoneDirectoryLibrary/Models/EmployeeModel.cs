@@ -16,8 +16,11 @@ namespace PhoneDirectoryLibrary.Models
         public string? PhoneMobile { get; set; }
         public int? Extension { get; set; }
         public string? Notes { get; set; }
+        public int TitleId { get; set; }
+        public int DepartmentId { get; set; }
+        public int SupId { get; set; }
         public TitleModel? Title { get; set; }
-        public DepartmentModel? Department{ get; set; }
+        public DepartmentModel? Department { get; set; }
         public EmployeeModel? Supervisor { get; set; }
         [EmailAddress]
         public string? Email { get; set; }
