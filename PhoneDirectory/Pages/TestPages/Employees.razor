@@ -40,19 +40,19 @@ else
                     <td>@employee.Extension</td>
                     <td>@employee.Notes</td>
                     @if(employee.Title is null){
-                        <td>" "</td>
+                        <td></td>
                     } else {
                         <td>@employee.Title.Name</td>
                     }
                     @if(employee.Department is null){
-                        <td>"  "</td>
+                        <td></td>
                     } else {
                         <td>@employee.Department.Name</td>
                     }
                     
                     @if (employee.Supervisor is null)
                     {
-                        <td>" "</td>
+                        <td></td>
                     } else {
                         <td>@employee.Supervisor.LastName</td>
                     }

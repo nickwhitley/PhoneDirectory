@@ -1,4 +1,5 @@
-﻿using PhoneDirectoryLibrary.Data.Interfaces;
+﻿using Microsoft.Extensions.Caching.Memory;
+using PhoneDirectoryLibrary.Data.Interfaces;
 using PhoneDirectoryLibrary.DataAccess;
 using System;
 using System.Collections.Generic;
@@ -11,19 +12,33 @@ namespace PhoneDirectoryLibrary.Data
     public class DepartmentData : IDepartmentData
     {
         private readonly ISQLDataAccess _database;
+        private readonly IMemoryCache _cache;
+        private const string cacheName = "DepartmentCache";
 
-        public DepartmentData(ISQLDataAccess database)
+        public DepartmentData(ISQLDataAccess database, IMemoryCache cache)
         {
             _database = database;
+            _cache = cache;
         }
 
-        public Task<List<DepartmentModel>> GetDepartmentsAsync()
+        public async Task<List<DepartmentModel>> GetDepartmentsAsync()
         {
-            string storedProc = "dbo.spDepartment_GetAll";
+            var cacheOutput = _cache.Get<List<DepartmentModel>>(cacheName);
 
-            return _database.LoadDataAsync<DepartmentModel, dynamic>(
-                storedProc, new { }
-                );
+            if(cacheOutput is null)
+            {
+                string storedProc = "dbo.spDepartment_GetAll";
+
+                var departments = await _database.LoadDataAsync<DepartmentModel, dynamic>(
+                    storedProc, new { }
+                    );
+
+                _cache.Set(cacheName, departments, TimeSpan.FromMinutes(5));
+                return departments;
+            }
+
+            return cacheOutput;
+            
         }
 
         public async Task UpdateDepartmentAsync(DepartmentModel department)

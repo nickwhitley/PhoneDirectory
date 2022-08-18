@@ -1,4 +1,5 @@
-﻿using PhoneDirectoryLibrary.Data.Interfaces;
+﻿using Microsoft.Extensions.Caching.Memory;
+using PhoneDirectoryLibrary.Data.Interfaces;
 using PhoneDirectoryLibrary.DataAccess;
 using System;
 using System.Collections.Generic;
@@ -12,43 +13,55 @@ namespace PhoneDirectoryLibrary.Data
     public class EmployeeData : IEmployeeData
     {
         private readonly ISQLDataAccess _database;
+        private readonly IMemoryCache _cache;
+        private const string cacheName = "EmployeeCache";
 
-        public EmployeeData(ISQLDataAccess database)
+        public EmployeeData(ISQLDataAccess database, IMemoryCache cache)
         {
             _database = database;
+            _cache = cache;
         }
 
         public async Task<List<EmployeeModel>> GetEmployeesAsync(IDataFactory dataFactory)
         {
-            string storedProc = "dbo.spEmployee_GetAll";
-            List<DepartmentModel> departments = dataFactory.Departments;
-            List<TitleModel> titles = dataFactory.Titles;
-            List<EmployeeModel> employees = await _database.LoadDataAsync<EmployeeModel, dynamic>(
-                storedProc, new { }
-                );
+            var cacheOutput = _cache.Get<List<EmployeeModel>>(cacheName);
 
-            foreach (var employee in employees)
+            if(cacheOutput is null)
             {
-                if (employee.Notes is null)
-                {
-                    employee.Notes = " ";
-                }
-                if (employee.TitleId != 0)
-                {
-                    employee.Title = titles.Where(t => t.Id == employee.TitleId).FirstOrDefault();
-                }
-                if (employee.DepartmentId != 0)
-                {
-                    employee.Department = departments.Where(d => d.Id == employee.DepartmentId).FirstOrDefault();
-                }
-                if (employee.SupId != 0)
-                {
-                    employee.Supervisor = employees.Where(e => e.Id == employee.SupId).FirstOrDefault();
-                }
-   
-            }
+                string storedProc = "dbo.spEmployee_GetAll";
+                var departments = dataFactory.Departments;
+                var titles = dataFactory.Titles;
+                var employees = await _database.LoadDataAsync<EmployeeModel, dynamic>(
+                    storedProc, new { }
+                    );
 
-            return employees;
+                foreach (var employee in employees)
+                {
+                    if (employee.Notes is null)
+                    {
+                        employee.Notes = " ";
+                    }
+                    if (employee.TitleId != 0)
+                    {
+                        employee.Title = titles.Where(t => t.Id == employee.TitleId).FirstOrDefault();
+                    }
+                    if (employee.DepartmentId != 0)
+                    {
+                        employee.Department = departments.Where(d => d.Id == employee.DepartmentId).FirstOrDefault();
+                    }
+                    if (employee.SupId != 0)
+                    {
+                        employee.Supervisor = employees.Where(e => e.Id == employee.SupId).FirstOrDefault();
+                    }
+
+                }
+                _cache.Set(cacheName, employees, TimeSpan.FromMinutes(5));
+                return employees;
+
+            }
+            
+
+            return cacheOutput;
         }
 
         public async Task UpdateEmployeeAsync(EmployeeModel employee)
