@@ -5,6 +5,14 @@
 @inject ProtectedSessionStorage sessionStorage
 
 <PageTitle>Directory Home</PageTitle>
+<h1>Employees</h1>
+<div>
+    <div>@employees?.Count Employees</div>
+</div>
+<div>
+    <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
+        @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
+</div>
 
 @if (employees is null)
 {
@@ -113,14 +121,19 @@ else
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        await LoadFilter();
-        StateHasChanged();
+        if(firstRender)
+        {
+            await LoadFilter();
+            await ApplyFilter();
+            StateHasChanged();
+        }
+        
     }
 
     private async Task LoadFilter()
     {
         var results = await sessionStorage.GetAsync<string>(nameof(searchText));
-        searchText = results.Success ? results.Value : "All";
+        searchText = results.Success ? results.Value : "";
 
         results = await sessionStorage.GetAsync<string>(nameof(selectedDepartment));
         selectedDepartment = results.Success ? results.Value : "All";
@@ -155,16 +168,33 @@ else
         {
             var stringComparison = StringComparison.InvariantCultureIgnoreCase;
 
-            output = output.Where(e => e.FirstName.Contains(searchText, stringComparison) ||
-                        e.LastName.Contains(searchText, stringComparison) ||
-                        e.Extension.Equals(int.TryParse(searchText, out int searchNum) ? searchNum : null) ||
+            output = output.Where(e => 
+                        e.FirstName.StartsWith(searchText, stringComparison) ||
+                        e.LastName.StartsWith(searchText, stringComparison) ||
+                        e.Extension.Contains(searchText, stringComparison) ||
                         e.PhoneMain.Contains(searchText, stringComparison) ||
                         e.PhoneMobile.Contains(searchText, stringComparison)).ToList();
         }
 
-        ///todo check if this is good practice or method should not be async task
         employees = output;
         await SaveFilter();
 
+    }
+
+    private async Task OnSearchInput(string searchInput)
+    {
+        searchText = searchInput;
+        await ApplyFilter();
+    }
+
+    private async Task OnDepartmentClick(DepartmentModel department)
+    {
+        selectedDepartment = department.Name;
+        await ApplyFilter();
+    }
+
+    private void OpenEmployeeDetails(EmployeeModel employee)
+    {
+        navManager.NavigateTo($"/EmployeeDetails/{employee.Id}");
     }
 }

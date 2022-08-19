@@ -14,7 +14,7 @@ namespace PhoneDirectoryLibrary.Models
 #nullable enable
         public string? PhoneMain { get; set; }
         public string? PhoneMobile { get; set; }
-        public int? Extension { get; set; }
+        public string? Extension { get; set; } = "";
         public string? Notes { get; set; }
         public int TitleId { get; set; }
         public int DepartmentId { get; set; }
