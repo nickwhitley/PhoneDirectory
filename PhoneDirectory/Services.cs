@@ -9,11 +9,11 @@ namespace PhoneDirectory
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddMemoryCache();
-            builder.Services.AddTransient<ISQLDataAccess, SQLDataAccess>();
-            builder.Services.AddTransient<IDataFactory, DataFactory>();
-            builder.Services.AddTransient<IEmployeeData, EmployeeData>();
-            builder.Services.AddTransient<ITitleData, TitleData>();
-            builder.Services.AddTransient<IDepartmentData, DepartmentData>();
+            builder.Services.AddSingleton<ISQLDataAccess, SQLDataAccess>();
+            builder.Services.AddSingleton<IDataFactory, DataFactory>();
+            builder.Services.AddSingleton<IEmployeeData, EmployeeData>();
+            builder.Services.AddSingleton<ITitleData, TitleData>();
+            builder.Services.AddSingleton<IDepartmentData, DepartmentData>();
         }
     }
 }

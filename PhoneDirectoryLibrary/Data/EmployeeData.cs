@@ -55,7 +55,7 @@ namespace PhoneDirectoryLibrary.Data
                     }
 
                 }
-                _cache.Set(cacheName, employees, TimeSpan.FromMinutes(5));
+                _cache.Set(cacheName, employees, TimeSpan.FromHours(4));
                 return employees;
 
             }
@@ -67,6 +67,8 @@ namespace PhoneDirectoryLibrary.Data
         public async Task UpdateEmployeeAsync(EmployeeModel employee)
         {
             ///TODO - Make sure to update local employee model before reaching this point.
+            _cache.Remove(cacheName);
+
             string storedProc = "dbo.spEmployee_Update";
 
             await _database.SaveDataAsync(

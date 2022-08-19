@@ -33,7 +33,7 @@ namespace PhoneDirectoryLibrary.Data
                     storedProc, new { }
                     );
 
-                _cache.Set(cacheName, departments, TimeSpan.FromMinutes(5));
+                _cache.Set(cacheName, departments, TimeSpan.FromHours(4));
                 return departments;
             }
 
@@ -43,6 +43,7 @@ namespace PhoneDirectoryLibrary.Data
 
         public async Task UpdateDepartmentAsync(DepartmentModel department)
         {
+            _cache.Remove(cacheName);
             string storedProc = "dbo.spDepartment_Update";
 
             await _database.SaveDataAsync(

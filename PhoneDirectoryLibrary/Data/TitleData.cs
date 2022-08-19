@@ -34,7 +34,7 @@ namespace PhoneDirectoryLibrary.Data
                     storedProc, new { }
                     );
 
-                _cache.Set(cacheName, titles, TimeSpan.FromMinutes(5));
+                _cache.Set(cacheName, titles, TimeSpan.FromHours(4));
                 return titles;
             }
 
