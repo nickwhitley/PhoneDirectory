@@ -13,25 +13,33 @@
     .employee-list-container
     {
         margin-left: 250px;
-        margin-top: 100px;
+        margin-top: 10px;
         width: 50%;
+         
         
     }
 
     .employee-list-item
     {
         
-        background-color: darkgrey;
+        background-color: bisque;
         outline-color: black;
         outline-width: 3px;
         outline-style: auto;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
+        border-radius: 10px;
     }
 
     .employee-list-item-content
     {
         margin-left: 10px;
-        margin-top: 65px;
+        margin-top: 10px;
+    }
+
+    .name-text
+    {
+        font-size: 18px;
+        font-weight: 700;
     }
 </style>
 <h1>Employees</h1>
@@ -54,9 +62,8 @@ else
         <Virtualize Items="@employees" Context="e" OverscanCount="20">
             <div class="employee-list-item">
                 <div class="employee-list-item-content">
-                    <div>Name: @e.FirstName @e.LastName</div> 
-                    <div>Main #: @e.PhoneMain Mobile #: @e.PhoneMobile Ext: @e.Extension</div>
-                    <div>Title: @e.Title?.Name Department: @e.Department.Name Email: @e.Email</div>
+                    <div class="name-text">@e.FirstName @e.LastName</div>
+                    <div>@e.Department.Name @e.Title?.Name</div> 
                     <br/>
                 </div>
             </div>
