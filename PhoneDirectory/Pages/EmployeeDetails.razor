@@ -1,0 +1,23 @@
+﻿@page "/EmployeeDetails/{Id:int}"
+
+@inject IDataFactory dataFactory
+@inject NavigationManager navManager
+
+<h3>EmployeeDetails</h3>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private EmployeeModel employee;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var employeesList = dataFactory.Employees;
+
+        employee = employeesList.First(e => e.Id == Id);
+
+        await base.OnInitializedAsync();
+    }
+
+}
