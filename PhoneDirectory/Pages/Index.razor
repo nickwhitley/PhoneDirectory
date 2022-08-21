@@ -22,24 +22,29 @@
     .employee-list-item
     {
         
-        background-color: bisque;
+        background-color: oldlace;
         outline-color: black;
         outline-width: 3px;
         outline-style: auto;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         border-radius: 10px;
     }
 
     .employee-list-item-content
     {
         margin-left: 10px;
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     .name-text
     {
-        font-size: 18px;
+        font-size: 21px;
         font-weight: 700;
+    }
+
+    .department-name
+    {
+        font-weight:700;
     }
 </style>
 <h1>Employees</h1>
@@ -63,90 +68,12 @@ else
             <div class="employee-list-item">
                 <div class="employee-list-item-content">
                     <div class="name-text">@e.FirstName @e.LastName</div>
-                    <div>@e.Department.Name @e.Title?.Name</div> 
+                        <div><text class="department-name">@e.Department.Name</text> @e.Title?.Name</div> 
                     <br/>
                 </div>
             </div>
         </Virtualize>
     </div>
-    @*<table id="employee-table" class="table table-striped">
-        <thead>
-            <tr>
-                <th @onclick="(() => OrderByFirstName())">First Name</th>
-                <th @onclick="(() => OrderByLastName())">Last Name</th>
-                <th>Main Phone</th>
-                <th>Mobile Phone</th>
-                <th>Extension</th>
-                <th>Notes</th>
-                <th @onclick="(() => OrderByTitle())">Title</th>
-                <th @onclick="(() => OrderByDepartment())">Department</th>
-                <th @onclick="(() => OrderBySupervisor())">Supervisor</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var employee in employees)
-            {
-                <tr>
-                    <td @onclick="(() => OpenEmployeeDetails(employee))">@employee.FirstName</td>
-                    <td>@employee.LastName</td>
-                    <td>@employee.PhoneMain</td>
-                    <td>@employee.PhoneMobile</td>
-                    <td>@employee.Extension</td>
-                    <td>@employee.Notes</td>
-                    @if(employee.Title is null){
-                        <td></td>
-                    } else {
-                        <td>@employee.Title.Name</td>
-                    }
-                    @if(employee.Department is null){
-                        <td></td>
-                    } else {
-                        <td>@employee.Department.Name</td>
-                    }
-                    
-                    @if (employee.Supervisor is null)
-                    {
-                        <td></td>
-                    } else {
-                        <td>@employee.Supervisor.LastName</td>
-                    }
-                    <td>@employee.Email</td>
-
-                </tr>
-            }
-        </tbody>
-    </table>
-    <table id="department-table">
-        <thead>
-            <tr>
-                <th>Departments</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var department in departments)
-            {
-                <tr>
-                    <td>@department.Name</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <table id="title-table">
-        <thead>
-            <tr>
-                <th>Titles</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var title in titles)
-            {
-                <tr>
-                    <td>@title.Name</td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
     }
 
 
