@@ -46,15 +46,36 @@
     {
         font-weight:700;
     }
+
+    .sort-arrow-icon
+    {
+    }
 </style>
 <h1>Employees</h1>
-<div>
-    <div>@employees?.Count Employees</div>
-</div>
+
 <div>
     <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
         @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
     <button @onclick="(() => OrderByDepartment())">Order By Department</button>
+</div>
+<div>
+    <div>@employees?.Count Employees</div>
+</div>
+<div>
+    <h6>Sort by:</h6>
+    <select id="sort-dropdown" @onchange="SortChange">
+        <option disabled selected>Sort by...</option>
+        @foreach (var sortValue in sortingDropdownItems)
+        {
+            if(sortValue.Contains("ASC"))
+            {
+                <option value="@sortValue">@sortValue.Replace("ASC", "") <p class="sort-arrow-icon">&#9650</p></option>
+            } else if(sortValue.Contains("DESC"))
+            {
+                <option value="@sortValue">@sortValue.Replace("DESC", "") <p class="sort-arrow-icon">&#9660</p></option>
+            }
+        }
+    </select>
 </div>
 
 @if (employees is null)
@@ -94,12 +115,17 @@ else
     private string titleOrder = "";
     private string supervisorOrder = "";
 
+    //sorting dropdown list
+    List<string> sortingDropdownItems = new List<string>();
+    private string currentSort = "";
+
     protected override async Task OnInitializedAsync()
     {
         await dataFactory.PopulateDataAsync();
         employees = dataFactory.Employees;
         departments = dataFactory.Departments;
         titles = dataFactory.Titles;
+        sortingDropdownItems = PopulateSortDropdownItems();
     }
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
@@ -393,8 +419,6 @@ else
         await SaveFilter();
     }
 
-
-
     private void ClearOrderFilters()
     {
         departmentOrder = "";
@@ -404,10 +428,31 @@ else
         supervisorOrder = "";
     }
 
+    private List<string> PopulateSortDropdownItems()
+    {
+        var output = new List<string>();
+        output.Add("");
+        output.Add("First Name ASC");
+        output.Add("First Name DESC");
+        output.Add("Last Name ASC");
+        output.Add("Last Name DESC");
+        output.Add("Title ASC");
+        output.Add("Title DESC");
+        output.Add("Department ASC");
+        output.Add("Department DESC");
+
+        return output;
+    }
+
     private async Task OnDepartmentClick(DepartmentModel department)
     {
         selectedDepartment = department.Name;
         await ApplyFilter();
+    }
+
+    private void SortChange(ChangeEventArgs e)
+    {
+        currentSort = e.Value.ToString();
     }
 
     private void OpenEmployeeDetails(EmployeeModel employee)
