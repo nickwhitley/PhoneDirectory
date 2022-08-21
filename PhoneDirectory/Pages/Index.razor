@@ -15,25 +15,18 @@
         margin-left: 250px;
         margin-top: 10px;
         width: 50%;
-         
-        
+
     }
 
     .employee-list-item
     {
         
-        background-color: oldlace;
-        outline-color: black;
-        outline-width: 3px;
-        outline-style: auto;
-        margin-bottom: 5px;
         border-radius: 10px;
     }
 
     .employee-list-item-content
     {
         margin-left: 10px;
-        margin-top: 5px;
     }
 
     .name-text
@@ -47,8 +40,9 @@
         font-weight:700;
     }
 
-    .sort-arrow-icon
+    .employee-list-linebreak
     {
+        
     }
 </style>
 <h1>Employees</h1>
@@ -89,7 +83,7 @@ else
                 <div class="employee-list-item-content">
                     <div class="name-text">@e.FirstName @e.LastName</div>
                         <div><text class="department-name">@e.Department.Name</text> @e.Title?.Name</div> 
-                    <br/>
+                    <hr class="employee-list-linebreak">
                 </div>
             </div>
         </Virtualize>
@@ -106,13 +100,6 @@ else
     private string searchText = "";
     private string selectedDepartment = "All";
     private string selectedTitle = "All";
-
-    //sorting values
-    private string departmentOrder = "";
-    private string firstNameOrder = "";
-    private string lastNameOrder = "";
-    private string titleOrder = "";
-    private string supervisorOrder = "";
 
     //sorting dropdown list
     List<string> sortingDropdownItems = new List<string>();
@@ -189,32 +176,33 @@ else
                         e.PhoneMobile.Contains(searchText, stringComparison)).ToList();
         }
 
-        //new sorting method
         switch(currentSort)
         {
             case "First Name ASC":
-                output = SortByFirstNameAscending();
+                output = output.OrderBy(e => e.FirstName).ToList();
                 break;
             case "First Name DESC":
-                output = SortByFirstNameDescending();
+                output = output.OrderByDescending(e => e.FirstName).ToList();
                 break;
             case "Last Name ASC":
-                output = SortByLastNameAscending();
+                output = output.OrderBy(e => e.LastName).ToList();
                 break;
             case "Last Name DESC":
-                output = SortByLastNameDescending();
+                output = output.OrderByDescending(e => e.LastName).ToList();
                 break;
             case "Title ASC":
-                output = SortByTitleAscending();
+                output = output.OrderBy(e => e.Title == null)
+                                            .ThenBy(e => e.Title != null ? e.Title.Name : null).ToList();
                 break;
             case "Title DESC":
-                output = SortByTitleDescending();
+                output = output.OrderByDescending(e => e.Title == null)
+                                            .ThenByDescending(e => e.Title != null ? e.Title.Name : null).ToList();
                 break;
             case "Department ASC":
-                output = SortByDepartmentAscending();
+                output = output.OrderBy(e => e.Department.Name).ToList();
                 break;
             case "Department DESC":
-                output = SortByDepartmentDescending();
+                output = output.OrderByDescending(e => e.Department.Name).ToList();
                 break;
             default:
                 break;
@@ -230,24 +218,6 @@ else
         searchText = searchInput;
         await ApplyFilter();
     }
-
-    private List<EmployeeModel> SortByFirstNameAscending() => employees.OrderBy(e => e.FirstName).ToList();
-
-    private List<EmployeeModel> SortByFirstNameDescending() => employees.OrderByDescending(e => e.FirstName).ToList();
-
-    private List<EmployeeModel> SortByLastNameAscending() => employees.OrderBy(e => e.LastName).ToList();
-
-    private List<EmployeeModel> SortByLastNameDescending() => employees.OrderByDescending(e => e.LastName).ToList();
-
-    private List<EmployeeModel> SortByTitleAscending() => employees.OrderBy(e => e.Title == null)
-                                            .ThenBy(e => e.Title != null ? e.Title.Name : null).ToList();
-
-    private List<EmployeeModel> SortByTitleDescending() => employees.OrderByDescending(e => e.Title == null)
-                                            .ThenByDescending(e => e.Title != null ? e.Title.Name : null).ToList();
-
-    private List<EmployeeModel> SortByDepartmentAscending() => employees.OrderBy(e => e.Department.Name).ToList();
-
-    private List<EmployeeModel> SortByDepartmentDescending() => employees.OrderByDescending(e => e.Department.Name).ToList();
 
     private List<string> PopulateSortDropdownItems()
     {
