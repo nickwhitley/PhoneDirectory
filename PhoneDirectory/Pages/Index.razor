@@ -56,7 +56,6 @@
 <div>
     <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
         @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
-    <button @onclick="(() => OrderByDepartment())">Order By Department</button>
 </div>
 <div>
     <div>@employees?.Count Employees</div>
@@ -150,20 +149,8 @@ else
         results = await sessionStorage.GetAsync<string>(nameof(selectedTitle));
         selectedTitle = results.Success ? results.Value : "All";
 
-        results = await sessionStorage.GetAsync<string>(nameof(departmentOrder));
-        departmentOrder = results.Success ? results.Value : "";
-
-        results = await sessionStorage.GetAsync<string>(nameof(firstNameOrder));
-        firstNameOrder = results.Success ? results.Value : "";
-
-        results = await sessionStorage.GetAsync<string>(nameof(lastNameOrder));
-        lastNameOrder = results.Success ? results.Value : "";
-
-        results = await sessionStorage.GetAsync<string>(nameof(titleOrder));
-        titleOrder = results.Success ? results.Value : "";
-
-        results = await sessionStorage.GetAsync<string>(nameof(supervisorOrder));
-        supervisorOrder = results.Success ? results.Value : "";
+        results = await sessionStorage.GetAsync<string>(nameof(currentSort));
+        currentSort = results.Success ? results.Value : "";
 
     }
 
@@ -172,11 +159,8 @@ else
         await sessionStorage.SetAsync(nameof(searchText), searchText);
         await sessionStorage.SetAsync(nameof(selectedDepartment), selectedDepartment);
         await sessionStorage.SetAsync(nameof(selectedTitle), selectedTitle);
-        await sessionStorage.SetAsync(nameof(departmentOrder), departmentOrder);
-        await sessionStorage.SetAsync(nameof(firstNameOrder), firstNameOrder);
-        await sessionStorage.SetAsync(nameof(lastNameOrder), lastNameOrder);
-        await sessionStorage.SetAsync(nameof(titleOrder), titleOrder);
-        await sessionStorage.SetAsync(nameof(supervisorOrder), supervisorOrder);
+        await sessionStorage.SetAsync(nameof(currentSort), currentSort);
+
     }
 
     private async Task ApplyFilter()
@@ -205,63 +189,36 @@ else
                         e.PhoneMobile.Contains(searchText, stringComparison)).ToList();
         }
 
-        switch(departmentOrder)
+        //new sorting method
+        switch(currentSort)
         {
-            case "ASC":
-                output = output.OrderBy(e => e.Department.Name).ToList();
+            case "First Name ASC":
+                output = SortByFirstNameAscending();
                 break;
-            case "DESC":
-                output = output.OrderByDescending(e => e.Department.Name).ToList();
+            case "First Name DESC":
+                output = SortByFirstNameDescending();
+                break;
+            case "Last Name ASC":
+                output = SortByLastNameAscending();
+                break;
+            case "Last Name DESC":
+                output = SortByLastNameDescending();
+                break;
+            case "Title ASC":
+                output = SortByTitleAscending();
+                break;
+            case "Title DESC":
+                output = SortByTitleDescending();
+                break;
+            case "Department ASC":
+                output = SortByDepartmentAscending();
+                break;
+            case "Department DESC":
+                output = SortByDepartmentDescending();
                 break;
             default:
                 break;
         }
-        switch (firstNameOrder)
-        {
-            case "ASC":
-                output = output.OrderBy(e => e.FirstName).ToList();
-                break;
-            case "DESC":
-                output = output.OrderByDescending(e => e.FirstName).ToList();
-                break;
-            default:
-                break;
-        }
-        switch (lastNameOrder)
-        {
-            case "ASC":
-                output = output.OrderBy(e => e.LastName).ToList();
-                break;
-            case "DESC":
-                output = output.OrderByDescending(e => e.LastName).ToList();
-                break;
-            default:
-                break;
-        }
-        switch (titleOrder)
-        {
-            case "ASC":
-                output = output.OrderBy(e => e.Title.Name).ToList();
-                break;
-            case "DESC":
-                output = output.OrderByDescending(e => e.Title.Name).ToList();
-                break;
-            default:
-                break;
-        }
-        switch (supervisorOrder)
-        {
-            case "ASC":
-                output = output.OrderBy(e => e.Supervisor.LastName).ToList();
-                break;
-            case "DESC":
-                output = output.OrderByDescending(e => e.Supervisor.LastName).ToList();
-                break;
-            default:
-                break;
-        }
-
-
 
         employees = output;
         await SaveFilter();
@@ -274,159 +231,23 @@ else
         await ApplyFilter();
     }
 
-    private async Task OrderByDepartment()
-    {
-        var output = dataFactory.Employees;
-        if (departmentOrder == "")
-        {
-            ClearOrderFilters();
-        }
+    private List<EmployeeModel> SortByFirstNameAscending() => employees.OrderBy(e => e.FirstName).ToList();
 
-        switch (departmentOrder)
-        {
-            case "":
-                employees = output.OrderBy(e => e.Department.Name).ToList();
-                departmentOrder = "ASC";
-                break;
-            case "ASC":
-                employees = output.OrderByDescending(e => e.Department.Name).ToList();
-                departmentOrder = "DESC";
-                break;
-            case "DESC":
-                employees = output.OrderBy(e => e.Department.Name).ToList();
-                departmentOrder = "ASC";
-                break;
-            default:
-                break;
-        }
+    private List<EmployeeModel> SortByFirstNameDescending() => employees.OrderByDescending(e => e.FirstName).ToList();
 
-        await SaveFilter();
-    }
+    private List<EmployeeModel> SortByLastNameAscending() => employees.OrderBy(e => e.LastName).ToList();
 
-    private async Task OrderByFirstName()
-    {
-        var output = dataFactory.Employees;
-        if (firstNameOrder == "")
-        {
-            ClearOrderFilters();
-        }
+    private List<EmployeeModel> SortByLastNameDescending() => employees.OrderByDescending(e => e.LastName).ToList();
 
-        switch (firstNameOrder)
-        {
-            case "":
-                employees = output.OrderBy(e => e.FirstName).ToList();
-                firstNameOrder = "ASC";
-                break;
-            case "ASC":
-                employees = output.OrderByDescending(e => e.FirstName).ToList();
-                firstNameOrder = "DESC";
-                break;
-            case "DESC":
-                employees = output.OrderBy(e => e.FirstName).ToList();
-                firstNameOrder = "ASC";
-                break;
-            default:
-                break;
-        }
+    private List<EmployeeModel> SortByTitleAscending() => employees.OrderBy(e => e.Title == null)
+                                            .ThenBy(e => e.Title != null ? e.Title.Name : null).ToList();
 
-        await SaveFilter();
-    }
+    private List<EmployeeModel> SortByTitleDescending() => employees.OrderByDescending(e => e.Title == null)
+                                            .ThenByDescending(e => e.Title != null ? e.Title.Name : null).ToList();
 
-    private async Task OrderByLastName()
-    {
-        var output = dataFactory.Employees;
-        if (lastNameOrder == "")
-        {
-            ClearOrderFilters();
-        }
+    private List<EmployeeModel> SortByDepartmentAscending() => employees.OrderBy(e => e.Department.Name).ToList();
 
-        switch (lastNameOrder)
-        {
-            case "":
-                employees = output.OrderBy(e => e.LastName).ToList();
-                lastNameOrder = "ASC";
-                break;
-            case "ASC":
-                employees = output.OrderByDescending(e => e.LastName).ToList();
-                lastNameOrder = "DESC";
-                break;
-            case "DESC":
-                employees = output.OrderBy(e => e.LastName).ToList();
-                lastNameOrder = "ASC";
-                break;
-            default:
-                break;
-        }
-
-        await SaveFilter();
-    }
-
-    private async Task OrderByTitle()
-    {
-        var output = dataFactory.Employees;
-        if (titleOrder == "")
-        {
-            ClearOrderFilters();
-        }
-
-        switch (titleOrder)
-        {
-            case "":
-                employees = output.OrderBy(e => e.Title == null).ThenBy(e => e.Title != null ? e.Title.Name : null).ToList();
-                titleOrder = "ASC";
-                break;
-            case "ASC":
-                employees = output.OrderByDescending(e => e.Title == null).ThenByDescending(e => e.Title != null ? e.Title.Name : null).ToList();
-                titleOrder = "DESC";
-                break;
-            case "DESC":
-                employees = output.OrderBy(e => e.Title == null).ThenBy(e => e.Title != null ? e.Title.Name : null).ToList();
-                titleOrder = "ASC";
-                break;
-            default:
-                break;
-        }
-
-        await SaveFilter();
-    }
-
-    private async Task OrderBySupervisor()
-    {
-        var output = dataFactory.Employees;
-        if (supervisorOrder == "")
-        {
-            ClearOrderFilters();
-        }
-
-        switch (supervisorOrder)
-        {
-            case "":
-                employees = output.OrderBy(e => e.Supervisor == null).ThenBy(e => e.Supervisor != null ? e.Supervisor.LastName : null).ToList();
-                supervisorOrder = "ASC";
-                break;
-            case "ASC":
-                employees = output.OrderByDescending(e => e.Supervisor == null).ThenBy(e => e.Supervisor != null ? e.Supervisor.LastName : null).ToList();
-                supervisorOrder = "DESC";
-                break;
-            case "DESC":
-                employees = output.OrderBy(e => e.Supervisor == null).ThenBy(e => e.Supervisor != null ? e.Supervisor.LastName : null).ToList();
-                supervisorOrder = "ASC";
-                break;
-            default:
-                break;
-        }
-
-        await SaveFilter();
-    }
-
-    private void ClearOrderFilters()
-    {
-        departmentOrder = "";
-        firstNameOrder = "";
-        lastNameOrder = "";
-        titleOrder = "";
-        supervisorOrder = "";
-    }
+    private List<EmployeeModel> SortByDepartmentDescending() => employees.OrderByDescending(e => e.Department.Name).ToList();
 
     private List<string> PopulateSortDropdownItems()
     {
@@ -450,9 +271,12 @@ else
         await ApplyFilter();
     }
 
-    private void SortChange(ChangeEventArgs e)
+    private async Task SortChange(ChangeEventArgs e)
     {
         currentSort = e.Value.ToString();
+        await SaveFilter();
+        await ApplyFilter();
+        StateHasChanged();
     }
 
     private void OpenEmployeeDetails(EmployeeModel employee)
