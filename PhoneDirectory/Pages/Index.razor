@@ -108,7 +108,13 @@
                 <div class="employee-list-item" @onclick="(() => OpenEmployeeDetails(e))">
                     <div class="employee-list-item-content">
                         <div class="name-text">@e.FirstName @e.LastName</div>
-                            <div><text class="department-name">@e.Department.Name</text> @e.Title?.Name</div> 
+                        <div><text class="department-name">@e.Department.Name</text> @e.Title?.Name</div>
+                        <div>
+                            @string.Format("{0: #(###) ###-####}", Convert.ToInt64(e.PhoneMain))
+                            x @e.Extension
+                            @string.Format("{0: #(###) ###-####}", Convert.ToInt64(e.PhoneMobile)) 
+                            @e.Email
+                        </div>
                         <hr class="employee-list-linebreak">
                     </div>
                 </div>
@@ -183,7 +189,10 @@
 
         if(selectedDepartment != "All")
         {
-            output = output.Where(e => e.Department?.Name == selectedDepartment).ToList();
+            output = output.Where(e => e.Department?.Name == selectedDepartment)
+                            .OrderBy(e => e.Title == null)
+                             .ThenBy(e => e.Title != null ? e.Title.TitleLevel : 0)
+                                .ThenBy(e => e.LastName).ToList();
         }
 
         if(selectedTitle != "All")
@@ -275,7 +284,6 @@
     private async Task OnDepartmentClick(string departmentName)
     {
         selectedDepartment = departmentName;
-        currentSort = "Title Level ASC";
         await ApplyFilter();
     }
 
