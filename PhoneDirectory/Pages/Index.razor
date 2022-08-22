@@ -99,7 +99,7 @@
     }
     <div class="department-filter-container">
         <h6>Departments</h6>
-        <button class="departments-filter-button" value="All" >All</button>
+        <button class="departments-filter-button" value="All" @onclick='(() => OnDepartmentClick("All"))'>All</button>
         @foreach(var department in departments)
         {
             <button class="departments-filter-button" @onclick="(() => OnDepartmentClick(department.Name))">@department.Name</button>
