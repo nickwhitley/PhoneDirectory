@@ -92,7 +92,7 @@
             <button class="title-filter-button" value="All" @onclick='(() => OnTitleClick("All"))'>All</button>
             @foreach (var title in titles)
             {
-                <button class="titles-filter-button" @onclick="(() => OnTitleClick(title.Name))">@title.Name</button>
+                <button class="titles-filter-button" @onclick="(() => OnTitleClick(title.Name))">@title.Name @title.TitleLevel</button>
             }
         </div>
     </div>
