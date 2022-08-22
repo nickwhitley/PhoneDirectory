@@ -225,6 +225,14 @@
                 output = output.OrderByDescending(e => e.Title == null)
                                             .ThenByDescending(e => e.Title != null ? e.Title.Name : null).ToList();
                 break;
+            case "Title Level ASC":
+                output = output.OrderBy(e => e.Title == null)
+                                            .ThenBy(e => e.Title != null ? e.Title.TitleLevel : 0).ToList();
+                break;
+            case "Title Level DESC":
+                output = output.OrderByDescending(e => e.Title == null)
+                                            .ThenByDescending(e => e.Title != null ? e.Title.TitleLevel : 0).ToList();
+                break;
             case "Department ASC":
                 output = output.OrderBy(e => e.Department.Name).ToList();
                 break;
@@ -256,6 +264,8 @@
         output.Add("Last Name DESC");
         output.Add("Title ASC");
         output.Add("Title DESC");
+        output.Add("Title Level ASC");
+        output.Add("Title Level DESC");
         output.Add("Department ASC");
         output.Add("Department DESC");
 
@@ -265,6 +275,7 @@
     private async Task OnDepartmentClick(string departmentName)
     {
         selectedDepartment = departmentName;
+        currentSort = "Title Level ASC";
         await ApplyFilter();
     }
 
