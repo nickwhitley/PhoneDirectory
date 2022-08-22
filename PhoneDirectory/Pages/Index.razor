@@ -20,9 +20,14 @@
 
     .employee-list-item
     {
-        
+        cursor: pointer;
         border-radius: 10px;
     }
+
+        .employee-list-item:hover
+        {
+            box-shadow: 0px 0px 10px rgb(120, 120, 120);
+        }
 
     .employee-list-item-content
     {
@@ -45,63 +50,74 @@
         
     }
 </style>
-<h1>Employees</h1>
-
 <div>
-    <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
-        @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
-</div>
-<div>
-    <div>@employees?.Count Employees</div>
-</div>
-<div>
-    <h6>Sort by:</h6>
-    <select id="sort-dropdown" @onchange="SortChange">
-        <option disabled selected>Sort by...</option>
-        @foreach (var sortValue in sortingDropdownItems)
-        {
-            if(sortValue.Contains("ASC"))
-            {
-                <option value="@sortValue">@sortValue.Replace("ASC", "") <p class="sort-arrow-icon">&#9650</p></option>
-            } else if(sortValue.Contains("DESC"))
-            {
-                <option value="@sortValue">@sortValue.Replace("DESC", "") <p class="sort-arrow-icon">&#9660</p></option>
-            }
-        }
-    </select>
-</div>
-
-@if (employees is null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <div  class="employee-list-container">
-        <Virtualize Items="@employees" Context="e" OverscanCount="20">
-            <div class="employee-list-item">
-                <div class="employee-list-item-content">
-                    <div class="name-text">@e.FirstName @e.LastName</div>
-                        <div><text class="department-name">@e.Department.Name</text> @e.Title?.Name</div> 
-                    <hr class="employee-list-linebreak">
-                </div>
-            </div>
-        </Virtualize>
+    <h1>Employees</h1>
+    
+    <div>
+        <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
+            @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
     </div>
+    <div>
+        <div>@employees?.Count Employees</div>
+    </div>
+    <div>
+        <select id="sort-dropdown" @onchange="SortChange">
+            <option disabled selected>Sort by...</option>
+            @foreach (var sortValue in sortingDropdownItems)
+            {
+                if(sortValue.Contains("ASC"))
+                {
+                    <option value="@sortValue">@sortValue.Replace("ASC", "") <p class="sort-arrow-icon">&#9650</p></option>
+                } else if(sortValue.Contains("DESC"))
+                {
+                    <option value="@sortValue">@sortValue.Replace("DESC", "") <p class="sort-arrow-icon">&#9660</p></option>
+                }
+            }
+        </select>
+    </div>
+    <div>
+    
+    </div>
+    
+    @if (employees is null)
+    {
+        <p><em>Loading...</em></p>
     }
-
+    else
+    {
+        <div  class="employee-list-container">
+            <Virtualize Items="@employees" Context="e" OverscanCount="20">
+                <div class="employee-list-item" @onclick="(() => OpenEmployeeDetails(e))">
+                    <div class="employee-list-item-content">
+                        <div class="name-text">@e.FirstName @e.LastName</div>
+                            <div><text class="department-name">@e.Department.Name</text> @e.Title?.Name</div> 
+                        <hr class="employee-list-linebreak">
+                    </div>
+                </div>
+            </Virtualize>
+        </div>
+    }
+    <div class="department-filter-container">
+        <h6>Departments</h6>
+        <button class="departments-filter-button" value="All" >All</button>
+        @foreach(var department in departments)
+        {
+            <button class="departments-filter-button" @onclick="(() => OnDepartmentClick(department.Name))">@department.Name</button>
+        }
+    </div>
+</div>
+    
 
 @code 
 {
-    private List<EmployeeModel> employees;
-    private List<DepartmentModel> departments;
-    private List<TitleModel> titles;
+    private List<EmployeeModel> employees = new List<EmployeeModel>();
+    private List<DepartmentModel> departments = new List<DepartmentModel>();
+    private List<TitleModel> titles = new List<TitleModel>();
 
     private string searchText = "";
     private string selectedDepartment = "All";
     private string selectedTitle = "All";
 
-    //sorting dropdown list
     List<string> sortingDropdownItems = new List<string>();
     private string currentSort = "";
 
@@ -235,9 +251,9 @@ else
         return output;
     }
 
-    private async Task OnDepartmentClick(DepartmentModel department)
+    private async Task OnDepartmentClick(string departmentName)
     {
-        selectedDepartment = department.Name;
+        selectedDepartment = departmentName;
         await ApplyFilter();
     }
 
