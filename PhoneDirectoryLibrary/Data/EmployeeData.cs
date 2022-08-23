@@ -69,24 +69,24 @@ namespace PhoneDirectoryLibrary.Data
             ///TODO - Make sure to update local employee model before reaching this point.
             _cache.Remove(cacheName);
 
-            string storedProc = "dbo.spEmployee_Update";
+            string storedProc = "spEmployee_Update";
 
             await _database.SaveDataAsync(
                 storedProc,
-                employee
-                //new
-                //{
-                //    @id = employee.Id,
-                //    @firstName = employee.FirstName,
-                //    @lastName = employee.LastName,
-                //    @phoneMain = employee.PhoneMain,
-                //    @phoneMobile = employee.PhoneMobile,
-                //    @extension = employee.Extension,
-                //    @notes = employee.Notes,
-                //    @titleId = employee.Title.Id,
-                //    @departmentId = employee.Department.Id,
-                //    @supId = employee.Supervisor.Id
-                //}
+                new
+                {
+                    @Id = employee.Id,
+                    employee.FirstName,
+                    employee.LastName,
+                    employee.PhoneMain,
+                    employee.PhoneMobile,
+                    employee.Extension,
+                    employee.Notes,
+                    employee.TitleId,
+                    employee.DepartmentId,
+                    employee.SupId,
+                    employee.Email
+                }
                 );
         }
 

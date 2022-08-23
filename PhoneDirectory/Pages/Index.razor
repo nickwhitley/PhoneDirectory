@@ -43,6 +43,7 @@
     .department-name
     {
         font-weight:700;
+        margin-right: 5px;
     }
 
     .employee-list-linebreak
@@ -56,6 +57,7 @@
     <div>
         <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
             @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
+        <button @onclick="(() => CreateNewEmployee())">New Employee</button>
     </div>
     <div>
         <div>@employees?.Count Employees</div>
@@ -92,7 +94,7 @@
             <button class="title-filter-button" value="All" @onclick='(() => OnTitleClick("All"))'>All</button>
             @foreach (var title in titles)
             {
-                <button class="titles-filter-button" @onclick="(() => OnTitleClick(title.Name))">@title.Name @title.TitleLevel</button>
+                <button class="titles-filter-button" @onclick="(() => OnTitleClick(title.Name))">@title.Name</button>
             }
         </div>
     </div>
@@ -108,7 +110,8 @@
                 <div class="employee-list-item" @onclick="(() => OpenEmployeeDetails(e))">
                     <div class="employee-list-item-content">
                         <div class="name-text">@e.FirstName @e.LastName</div>
-                        <div><text class="department-name">@e.Department.Name</text> @e.Title?.Name</div>
+                        <div><text class="department-name">@e.Department.Name </text> 
+                            @if(e.Title.Name != "Untitled") { @e.Title.Name}</div>
                         <div>
                             @string.Format("{0: #(###) ###-####}", Convert.ToInt64(e.PhoneMain))
                             x @e.Extension
@@ -299,6 +302,11 @@
         await SaveFilter();
         await ApplyFilter();
         StateHasChanged();
+    }
+
+    private void CreateNewEmployee()
+    {
+        navManager.NavigateTo("EmployeeDetails/0");
     }
 
     private void OpenEmployeeDetails(EmployeeModel employee)

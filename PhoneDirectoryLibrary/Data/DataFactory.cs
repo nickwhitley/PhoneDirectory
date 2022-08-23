@@ -32,5 +32,10 @@ namespace PhoneDirectoryLibrary.Data
             Departments = await _departmentData.GetDepartmentsAsync();
             Employees = await _employeeData.GetEmployeesAsync(this);
         }
+
+        public async Task UpdateEmployeeAsync(EmployeeModel employee)
+        {
+            await _employeeData.UpdateEmployeeAsync(employee);
+        }
     }
 }

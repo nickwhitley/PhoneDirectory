@@ -7,5 +7,7 @@
         List<TitleModel> Titles { get; set; }
 
         Task PopulateDataAsync();
+
+        Task UpdateEmployeeAsync(EmployeeModel employee);
     }
 }

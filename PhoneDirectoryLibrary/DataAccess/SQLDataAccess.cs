@@ -35,10 +35,11 @@ namespace PhoneDirectoryLibrary.DataAccess
         public async Task SaveDataAsync<T>(string sql, T parameters)
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
+            CommandType commandType = CommandType.StoredProcedure;
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                await connection.ExecuteAsync(sql, parameters);
+                await connection.ExecuteAsync(sql, parameters, commandType: commandType);
             }
         }
     }
