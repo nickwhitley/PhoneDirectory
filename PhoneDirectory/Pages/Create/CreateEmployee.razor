@@ -1,0 +1,130 @@
+﻿@page "/Create/Employee"
+
+@inject IDataFactory dataFactory
+@inject NavigationManager navManager
+
+@using Models;
+
+<head></head>
+<body>
+    <div>
+        <button @onclick="(() => OpenDirectory())">Go To Directory</button>
+    </div>
+    <div>
+        <div>
+            <h3>New Employee</h3>
+        </div>
+        <div class="employee-create-form">
+            <EditForm Model="newEmployee" OnValidSubmit="SaveNewEmployee">
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+                <div class="employee-create-form-item">
+                    <label for="first-name">First Name</label>
+                    <InputText id="first-name"@bind-Value="newEmployee.FirstName"/>
+                </div>
+                <div class="employee-create-form-item">
+                    <label for="last-name">Last Name</label>
+                    <InputText id="last-name" @bind-Value="newEmployee.LastName"/>
+                </div>
+                <div class="employee-create-form-item">
+                    <label for="phone-main">Main Phone</label>
+                    <InputText id="phone-main" @bind-Value="newEmployee.PhoneMain"/>
+                </div>
+                <div class="employee-create-form-item">
+                    <label for="extension">Extension</label>
+                    <InputText id="extension" @bind-Value="newEmployee.Extension"/>
+                </div>
+                <div class="employee-create-form-item">
+                    <label for="phone-mobile">Mobile Phone</label>
+                    <InputText id="phone-mobile" @bind-Value="newEmployee.PhoneMobile"/>
+                </div>
+                <div class="employee-create-form-item">
+                    <label for="email">Email</label>
+                <InputText id="email" @bind-Value="newEmployee.Email"/>
+                </div>
+                <div class="employee-create-form-item">
+                    <label for="department">Department</label>
+                    <InputSelect id="department" @bind-Value="newEmployee.DepartmentId" @onfocusout="DepartmentTitleSelected">
+                        @foreach (var department in Departments)
+                        {
+                                <option value="@department.Id">@department.Name</option>
+                        }
+                    </InputSelect>
+                </div>
+                <div class="employee-create-form-item">
+                    <label for="title">Title</label>
+                    <InputSelect id="title" @bind-Value="newEmployee.TitleId" @onfocusout="DepartmentTitleSelected">
+                        @foreach (var title in Titles)
+                        {
+                                    <option value="@title.Id">@title.Name</option>
+                        }
+                    </InputSelect>
+                </div>
+                <div class="employee-create-form-item">
+                    <label for="supervisor">Supervisor</label>
+                    <InputSelect id="supervisor" @bind-Value="newEmployee.SupId" @onfocus="DepartmentTitleSelected">
+                        @if(availableSupervisors is not null)
+                        {
+                            @foreach(var sup in availableSupervisors)
+                            {
+                                <option value="@sup.Id">@sup.FirstName @sup.LastName</option>
+                            }
+                        }
+                    </InputSelect>
+                </div>
+                <div>
+                    <button type="submit" class="form-submit-button">Create Employee</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+
+</body>
+
+@code {
+    private NewEmployeeModel newEmployee = new NewEmployeeModel();
+
+    private List<TitleModel> Titles;
+    private List<DepartmentModel> Departments;
+    private List<EmployeeModel> availableSupervisors = new List<EmployeeModel>();
+    //may not use!!!
+    private string firstName;
+    private string lastName;
+    private string phoneMain;
+    private string phoneMobile;
+    private string extension;
+    private string notes;
+    private int titleId;
+    private int departmentId;
+    private int supervisorId;
+    private string email;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Titles = dataFactory.Titles;
+        Departments = dataFactory.Departments;
+
+        await base.OnInitializedAsync();
+    }
+
+    private void SaveNewEmployee()
+    {
+
+    }
+
+    private void DepartmentTitleSelected()
+    {
+        
+        if(newEmployee.TitleId != 0 && newEmployee.DepartmentId != 0)
+        {
+            availableSupervisors = dataFactory.GetAvailableSupervisors(newEmployee.TitleId, newEmployee.DepartmentId);
+            newEmployee.SupId = availableSupervisors[0].Id;
+        }
+        
+    }
+
+    private void OpenDirectory()
+    {
+        navManager.NavigateTo("/");
+    }
+}

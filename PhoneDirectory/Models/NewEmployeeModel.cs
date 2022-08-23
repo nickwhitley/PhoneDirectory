@@ -19,6 +19,7 @@ namespace PhoneDirectory.Models
         [MinLength(3)]
         [MaxLength(5)]
         public string Extension { get; set; }
+        [MaxLength(300)]
         public string Notes { get; set; }
         public int TitleId { get; set; }
         [Required]

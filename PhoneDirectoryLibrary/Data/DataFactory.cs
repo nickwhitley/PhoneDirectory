@@ -37,5 +37,24 @@ namespace PhoneDirectoryLibrary.Data
         {
             await _employeeData.UpdateEmployeeAsync(employee);
         }
+
+        public List<EmployeeModel> GetAvailableSupervisors(int titleId, int departmentId)
+        {
+            var output = Employees;
+            var titleLevel = Titles.Where(t => t.Id == titleId).FirstOrDefault().TitleLevel;
+
+            if (titleLevel > 4)
+            {
+
+                output = (List<EmployeeModel>)output.Where(e => e.DepartmentId == departmentId)
+                                                     .Where(e => e.Title?.TitleLevel < titleLevel).ToList();
+            } else
+            {
+                output = (List<EmployeeModel>)output.Where(e => e.DepartmentId == departmentId)
+                                                    .Where(e => e.Title?.TitleLevel == (titleLevel - 1)).ToList();
+            }
+
+            return output;
+        }
     }
 }

@@ -9,5 +9,7 @@
         Task PopulateDataAsync();
 
         Task UpdateEmployeeAsync(EmployeeModel employee);
+
+        List<EmployeeModel> GetAvailableSupervisors(int titleId, int departmentId);
     }
 }

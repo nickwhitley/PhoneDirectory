@@ -1,0 +1,14 @@
+﻿@page "/Create/Department"
+
+@inject IDataFactory dataFactory
+@inject NavigationManager navManager
+
+@using Models
+
+@code {
+
+    private void OpenDirectory()
+    {
+        navManager.NavigateTo("/");
+    }
+}
