@@ -8,78 +8,6 @@
     <button @onclick="(() => OpenDirectory())">Go To Directory</button>
     <button class="new-employee-button" @onclick="(() => NewEmployeePage())">New Employee</button>
 </div>
-@if(createNewEmployee)
-{
-    <div>
-        <h1>Create New Employee</h1>
-    </div>
-        <div class="employee-details-form">
-            <EditForm Model="employee" OnValidSubmit="SaveEmployeeForm">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-                <div class="employee-form-item">
-                    <label for="first-name">First Name</label>
-                    <InputText id="first-name" @bind-Value="firstName"/>
-                </div>
-                <div class="employee-form-item">
-                    <label for="last-name">Last Name</label>
-                    <InputText id="last-name" @bind-Value="lastName" @onchange="OnInfoChange"/>
-                </div>
-                <div class="employee-form-item">
-                    <label for="phone-main">Main Phone</label>
-                    <InputText id="phone-main" @bind-Value="phoneMain" @onchange="OnInfoChange"/>
-                </div>
-                <div class="employee-form-item">
-                    <label for="extension">Extension</label>
-                    <InputText id="extension" @bind-Value="extension" @onchange="OnInfoChange"/>
-                </div>
-                <div class="employee-form-item">
-                    <label for="phone-mobile">Mobile Phone</label>
-                    <InputText id="phone-mobile" @bind-Value="phoneMobile" @onchange="OnInfoChange"/>
-                </div>
-                <div class="employee-form-item">
-                    <label for="email">Email</label>
-                    <InputText id="email" @bind-Value="email" @onchange="OnInfoChange"/>
-                </div>
-                <div class="employee-form-item">
-                    <label for="department">Department</label>
-                    <InputSelect id="department" @bind-Value="departmentId" @onchange="OnInfoChange">
-                    @foreach (var department in dataFactory.Departments)
-                    {
-                        <option value="@department.Id">@department.Name</option>
-                    }
-                    </InputSelect>
-                </div>
-                <div class="employee-form-item">
-                    <label for="title">Title</label>
-                    <InputSelect id="title" @bind-Value="titleId" @onchange="OnInfoChange">
-                    @foreach (var title in dataFactory.Titles)
-                    {
-                        <option value="@title.Id">@title.Name</option>
-                    }
-                    </InputSelect>
-                </div>
-                <div class="employee-form-item">
-                    <label for="supervisor">Supervisor</label>
-                    <InputSelect id="supervisor" @bind-Value="supId" @onchange="OnInfoChange">
-                    @*@foreach (var supervisor in availableSupervisors)
-                    {
-                        <option value="@supervisor.Id">@supervisor.FirstName @supervisor.LastName (@supervisor.Title.Name)</option>
-                    }*@
-                    </InputSelect>
-                </div>
-                <div class="employee-form-item">
-                    <label for="notes">Notes</label>
-                    <InputTextArea id="notes" @bind-Value="notes"/>
-                </div>
-                <div>
-                   <button type="submit" class="form-submit-button">Submit</button>
-
-                </div>
-            </EditForm>
-        </div>
-} else 
-{
     <div>
         <h1>Edit Employee</h1>    
     </div>
@@ -163,7 +91,6 @@
         </EditForm>
     </div>
 
-}
 
 @code {
     [Parameter]
@@ -190,14 +117,10 @@
     {
         var employeesList = dataFactory.Employees;
 
-        if(Id == 0) {
-            createNewEmployee = true;
-            employee = new();
-        } else 
-        {
-            employee = employeesList.First(e => e.Id == Id);
-            availableSupervisors = PopulateAvailableSupervisors();
-        }
+
+        employee = employeesList.First(e => e.Id == Id);
+        availableSupervisors = PopulateAvailableSupervisors();
+
 
 
         await base.OnInitializedAsync();
@@ -239,10 +162,8 @@
 
     private void NewEmployeePage()
     {
-        Id = 0;
-        navManager.NavigateTo($"/EmployeeDetails/{0}");
-        InvokeAsync(OnInitializedAsync);
-        
+        navManager.NavigateTo($"Create/{0}");
+
     }
 
     private void OpenDirectory()

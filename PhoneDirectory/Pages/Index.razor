@@ -57,7 +57,6 @@
     <div>
         <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
             @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
-        <button @onclick="(() => CreateNewEmployee())">New Employee</button>
     </div>
     <div>
         <div>@employees?.Count Employees</div>
@@ -306,7 +305,7 @@
 
     private void CreateNewEmployee()
     {
-        navManager.NavigateTo("EmployeeDetails/0");
+        navManager.NavigateTo("Create");
     }
 
     private void OpenEmployeeDetails(EmployeeModel employee)

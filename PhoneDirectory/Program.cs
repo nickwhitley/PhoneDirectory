@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using PhoneDirectory;
-using PhoneDirectoryLibrary.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
