@@ -1,7 +1,7 @@
 ﻿@page "/Admin"
 
 @inject NavigationManager navManager
-@inject DataFactory dataFactory
+@inject IDataFactory dataFactory
 
 <head></head>
 <body>
@@ -14,7 +14,50 @@
             <button class="admin-logout-button" @onclick="AdminLogout">Logout</button>
         </div>
     </div>
-    <!--table-->
+    <!--tables-->
+    <div>
+        <div>
+            <input type="text" @bind=employeeSearchText placeholder="Search Employees" aria-label="Search Box"
+                @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
+        </div>
+        <div>
+            @foreach(var department in departments)
+            {
+                <button class="department-button" value="department" 
+                    @onclick="(() => OpenDepartmentDetails(department))">@department.Name</button>
+            }
+        </div>
+        <div>
+            @if (employees is null)
+            {
+            <p><em>Loading...</em></p>
+            }
+            else
+            {
+            <div  class="employee-list-container">
+                <Virtualize Items="@employees" Context="e" OverscanCount="20">
+                    <div class="employee-list-item" @onclick="(() => OpenEmployeeDetails(e))">
+                        <div class="employee-list-item-content">
+                            <div class="name-text">@e.FirstName @e.LastName</div>
+                            <div><text class="department-name">@e.Department.Name </text> 
+                                    @if (e.Title.Name != "Untitled")
+                                    {
+                                        @e.Title.Name
+                                    }</div>
+                            <div>
+                                    @string.Format("{0: #(###) ###-####}", Convert.ToInt64(e.PhoneMain))
+                                x @e.Extension
+                                    @string.Format("{0: #(###) ###-####}", Convert.ToInt64(e.PhoneMobile)) 
+                                    @e.Email
+                            </div>
+                            <hr class="employee-list-linebreak">
+                        </div>
+                    </div>
+                </Virtualize>
+            </div>
+            }
+        </div>
+    </div>
 </body>
 
 
@@ -22,10 +65,28 @@
     private List<DepartmentModel> departments;
     private List<EmployeeModel> employees;
 
+    private string employeeSearchText;
+
     protected override async Task OnInitializedAsync()
     {
-
+        employees = dataFactory.Employees;
+        departments = dataFactory.Departments;
         await base.OnInitializedAsync();
+    }
+
+    private void OpenDepartmentDetails(DepartmentModel department)
+    {
+
+    }
+
+    private void OpenEmployeeDetails(EmployeeModel employee)
+    {
+        navManager.NavigateTo($"EmployeeDetails/{employee.Id}");
+    }
+
+    private void OnSearchInput(string text)
+    {
+
     }
 
     private void AdminLogout()
