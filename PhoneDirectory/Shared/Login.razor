@@ -1,0 +1,18 @@
+﻿<AuthorizeView Policy="Admin">
+    <a href="/AdminPortal">
+        Admin Portal    
+    </a>
+</AuthorizeView>
+<AuthorizeView>
+    <Authorized>
+        <a href="MicrosoftIdentity/Account/SignOut">
+            Logout    
+        </a>
+    </Authorized>
+    <NotAuthorized>
+        <a href="MicrosoftIdentity/Account/SignIn">
+            Login    
+        </a>
+    </NotAuthorized>
+</AuthorizeView>
+

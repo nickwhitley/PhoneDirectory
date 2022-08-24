@@ -8,7 +8,9 @@
     <button @onclick="(() => OpenDirectory())">Go To Directory</button>
     <button class="new-employee-button" @onclick="(() => NewEmployeePage())">New Employee</button>
 </div>
-    <div>
+    <AuthorizeView Context="Auth">
+        <Authorized>
+        <div>
         <h1>Edit Employee</h1>    
     </div>
     <div class="employee-details-form">
@@ -89,7 +91,10 @@
 
             </div>
         </EditForm>
-    </div>
+        </div>
+        </Authorized>
+    </AuthorizeView>
+    
 
 
 @code {

@@ -1,4 +1,5 @@
 ﻿@page "/Create/Employee"
+@attribute [Authorize(Policy = "Admin")]
 
 @inject IDataFactory dataFactory
 @inject NavigationManager navManager
