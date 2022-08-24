@@ -90,6 +90,29 @@ namespace PhoneDirectoryLibrary.Data
                 );
         }
 
+        public async Task AddEmployeeAsync(EmployeeModel employee)
+        {
+            _cache.Remove(cacheName);
+            string storedProc = "spEmployee_Create";
+
+            await _database.SaveDataAsync(
+                storedProc,
+                new
+                {
+                    employee.FirstName,
+                    employee.LastName,
+                    employee.PhoneMain,
+                    employee.PhoneMobile,
+                    employee.Extension,
+                    employee.Notes,
+                    employee.TitleId,
+                    employee.DepartmentId,
+                    employee.SupId,
+                    employee.Email
+                }
+                );
+        }
+
         public async Task DeleteEmployeeAsync(EmployeeModel employee)
         {
             string storedProc = "dbo.spEmployee_DeleteById";

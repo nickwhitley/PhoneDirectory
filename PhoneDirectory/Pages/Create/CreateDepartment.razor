@@ -5,8 +5,52 @@
 
 @using Models
 
-@code {
+<head></head>
+<body>
+    <div>
+        <button @onclick="(() => OpenDirectory())">Go To Directory</button>
+    </div>
+    <div>
+        <div>
+            <h3>New Department</h3>
+        </div>
+        <div class="department-create-form">
+            <EditForm Model="newDepartment" OnValidSubmit="SaveNewDepartment">
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+                <div class="department-create-form-item">
+                    <label for="department-name">Department Name</label>
+                    <InputText id="department-name" @bind-Value="newDepartment.Name"/>
+                </div>
+                <div>
+                    <button type="submit" class="form-submit-button">Create Department</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</body>
 
+@code {
+    private NewDepartmentModel newDepartment = new NewDepartmentModel();
+
+    private string departmentName;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await base.OnInitializedAsync();
+    }
+
+    private void SaveNewDepartment()
+    {
+        var departmentConvert = new DepartmentModel()
+            {
+                Name = newDepartment.Name
+            };
+
+        dataFactory.AddDepartment(departmentConvert);
+        OpenDirectory();
+    }
     private void OpenDirectory()
     {
         navManager.NavigateTo("/");

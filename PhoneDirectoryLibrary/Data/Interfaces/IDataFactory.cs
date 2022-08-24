@@ -11,5 +11,7 @@
         Task UpdateEmployeeAsync(EmployeeModel employee);
 
         List<EmployeeModel> GetAvailableSupervisors(int titleId, int departmentId);
+        Task AddEmployeeAsync(EmployeeModel employee);
+        Task AddDepartment(DepartmentModel department);
     }
 }

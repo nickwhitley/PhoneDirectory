@@ -109,7 +109,22 @@
 
     private void SaveNewEmployee()
     {
+        var employeeConvert = new EmployeeModel()
+            {
+                FirstName = newEmployee.FirstName,
+                LastName = newEmployee.LastName,
+                PhoneMain = newEmployee.PhoneMain,
+                PhoneMobile = newEmployee.PhoneMobile,
+                Extension = newEmployee.Extension,
+                Notes = newEmployee.Notes,
+                TitleId = newEmployee.TitleId,
+                DepartmentId = newEmployee.DepartmentId,
+                SupId = newEmployee.SupId,
+                Email = newEmployee.Email
+            };
 
+        dataFactory.AddEmployeeAsync(employeeConvert);
+        OpenDirectory();
     }
 
     private void DepartmentTitleSelected()

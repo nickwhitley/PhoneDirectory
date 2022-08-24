@@ -38,6 +38,16 @@ namespace PhoneDirectoryLibrary.Data
             await _employeeData.UpdateEmployeeAsync(employee);
         }
 
+        public async Task AddEmployeeAsync(EmployeeModel employee)
+        {
+            await _employeeData.AddEmployeeAsync(employee);
+        }
+
+        public async Task AddDepartment(DepartmentModel department)
+        {
+            await _departmentData.AddDepartmentAsync(department);
+        }
+
         public List<EmployeeModel> GetAvailableSupervisors(int titleId, int departmentId)
         {
             var output = Employees;

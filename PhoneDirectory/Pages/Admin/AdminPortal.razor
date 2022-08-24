@@ -1,0 +1,40 @@
+﻿@page "/Admin"
+
+@inject NavigationManager navManager
+@inject DataFactory dataFactory
+
+<head></head>
+<body>
+    <!--top bar-->
+    <div>
+        <div>
+            <button class="back-to-directory-button" @onclick="OpenDirectory">Go To Directory</button>
+        </div>
+        <div>
+            <button class="admin-logout-button" @onclick="AdminLogout">Logout</button>
+        </div>
+    </div>
+    <!--table-->
+</body>
+
+
+@code {
+    private List<DepartmentModel> departments;
+    private List<EmployeeModel> employees;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await base.OnInitializedAsync();
+    }
+
+    private void AdminLogout()
+    {
+        OpenDirectory();
+    }
+
+    private void OpenDirectory()
+    {
+        navManager.NavigateTo("/");
+    }
+}

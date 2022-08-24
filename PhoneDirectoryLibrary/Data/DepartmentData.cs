@@ -41,6 +41,20 @@ namespace PhoneDirectoryLibrary.Data
             
         }
 
+        public async Task AddDepartmentAsync(DepartmentModel department)
+        {
+            _cache.Remove(cacheName);
+
+            string storedProc = "spDepartment_Create";
+
+            await _database.SaveDataAsync(
+                storedProc,
+                new
+                {
+                    department.Name
+                });
+        }
+
         public async Task UpdateDepartmentAsync(DepartmentModel department)
         {
             _cache.Remove(cacheName);
