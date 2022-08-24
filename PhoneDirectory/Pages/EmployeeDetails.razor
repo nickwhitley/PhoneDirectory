@@ -5,8 +5,8 @@
 
 <h3>EmployeeDetails</h3>
 <div>
-    <button @onclick="(() => OpenDirectory())">Go To Directory</button>
-    <button class="new-employee-button" @onclick="(() => NewEmployeePage())">New Employee</button>
+    <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
+    <button class="button" @onclick="(() => NewEmployeePage())">New Employee</button>
 </div>
     <AuthorizeView Context="Auth">
         <Authorized>
@@ -19,27 +19,27 @@
             <ValidationSummary />
             <div class="employee-form-item">
                 <label for="first-name">First Name</label>
-                <InputText id="first-name" @bind-Value="employee.FirstName"/>
+                <InputText class="input-box" id="first-name" @bind-Value="employee.FirstName"/>
             </div>
             <div class="employee-form-item">
                 <label for="last-name">Last Name</label>
-                <InputText id="last-name" @bind-Value="employee.LastName" @onchange="OnInfoChange"/>
+                <InputText class="input-box" id="last-name" @bind-Value="employee.LastName" @onchange="OnInfoChange"/>
             </div>
             <div class="employee-form-item">
                 <label for="phone-main">Main Phone</label>
-                <InputText id="phone-main" @bind-Value="employee.PhoneMain" @onchange="OnInfoChange"/>
+                <InputText class="input-box" id="phone-main" @bind-Value="employee.PhoneMain" @onchange="OnInfoChange"/>
             </div>
             <div class="employee-form-item">
                 <label for="extension">Extension</label>
-                <InputText id="extension" @bind-Value="employee.Extension" @onchange="OnInfoChange"/>
+                <InputText class="input-box" id="extension" @bind-Value="employee.Extension" @onchange="OnInfoChange"/>
             </div>
             <div class="employee-form-item">
                 <label for="phone-mobile">Mobile Phone</label>
-                <InputText id="phone-mobile" @bind-Value="employee.PhoneMobile" @onchange="OnInfoChange"/>
+                <InputText class="input-box" id="phone-mobile" @bind-Value="employee.PhoneMobile" @onchange="OnInfoChange"/>
             </div>
             <div class="employee-form-item">
                 <label for="email">Email</label>
-                <InputText id="email" @bind-Value="employee.Email" @onchange="OnInfoChange"/>
+                <InputText class="input-box" id="email" @bind-Value="employee.Email" @onchange="OnInfoChange"/>
             </div>
             <div class="employee-form-item">
                 <label for="department">Department</label>
@@ -84,10 +84,10 @@
             </div>
             <div class="employee-form-item">
                 <label for="notes">Notes</label>
-                <InputTextArea id="notes" @bind-Value="employee.Notes"/>
+                <InputTextArea class="input-box" id="notes" @bind-Value="employee.Notes"/>
             </div>
             <div>
-               <button type="submit" class="form-submit-button">Submit</button>
+               <button type="submit" class="button">Submit</button>
 
             </div>
         </EditForm>

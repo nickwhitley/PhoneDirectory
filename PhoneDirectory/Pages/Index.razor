@@ -14,7 +14,7 @@
     <h1>Employees</h1>
     
     <div>
-        <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
+        <input class="search-box" type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
             @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
         <button class="button" @onclick="AdminLogin">Admin Login</button>
     </div>
@@ -41,19 +41,19 @@
     </div>
         <div class="department-filter-container">
         <h6>Departments</h6>
-        <button class="departments-filter-button" value="All" @onclick='(() => OnDepartmentClick("All"))'>All</button>
+        <button class="button" value="All" @onclick='(() => OnDepartmentClick("All"))'>All</button>
         @foreach (var department in departments)
         {
-                <button class="departments-filter-button" @onclick="(() => OnDepartmentClick(department.Name))">@department.Name</button>
+                    <button class="button" @onclick="(() => OnDepartmentClick(department.Name))">@department.Name</button>
         }
     </div>
     <div>
         <div class="title-filter-container">
             <h6>Titles</h6>
-            <button class="title-filter-button" value="All" @onclick='(() => OnTitleClick("All"))'>All</button>
+            <button class="button" value="All" @onclick='(() => OnTitleClick("All"))'>All</button>
             @foreach (var title in titles)
             {
-                <button class="titles-filter-button" @onclick="(() => OnTitleClick(title.Name))">@title.Name</button>
+                    <button class="button" @onclick="(() => OnTitleClick(title.Name))">@title.Name</button>
             }
         </div>
     </div>

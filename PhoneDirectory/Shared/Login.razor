@@ -1,18 +1,13 @@
-﻿<AuthorizeView Policy="Admin">
-    <a href="/AdminPortal">
-        Admin Portal    
-    </a>
-</AuthorizeView>
+﻿<head>
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
 <AuthorizeView>
     <Authorized>
-        <a href="MicrosoftIdentity/Account/SignOut">
-            Logout    
-        </a>
+        <button class="button" onclick="location.href='MicrosoftIdentity/Account/SignOut'">Logout</button>
+        <button class="button" onclick="location.href='/Admin'">Admin Portal</button>
     </Authorized>
     <NotAuthorized>
-        <a href="MicrosoftIdentity/Account/SignIn">
-            Login    
-        </a>
+        <button class="button" onclick="location.href='MicrosoftIdentity/Account/SignIn'">Login</button>
     </NotAuthorized>
 </AuthorizeView>
 

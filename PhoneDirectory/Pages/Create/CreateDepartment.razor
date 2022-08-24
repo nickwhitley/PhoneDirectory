@@ -1,5 +1,5 @@
 ﻿@page "/Create/Department"
-@attribute [Authorize(Policy = "Admin")]
+@attribute [Authorize]
 
 @inject IDataFactory dataFactory
 @inject NavigationManager navManager
@@ -9,7 +9,7 @@
 <head></head>
 <body>
     <div>
-        <button @onclick="(() => OpenDirectory())">Go To Directory</button>
+        <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
     </div>
     <div>
         <div>
@@ -24,7 +24,7 @@
                     <InputText id="department-name" @bind-Value="newDepartment.Name"/>
                 </div>
                 <div>
-                    <button type="submit" class="form-submit-button">Create Department</button>
+                    <button type="submit" class="button">Create Department</button>
                 </div>
             </EditForm>
         </div>

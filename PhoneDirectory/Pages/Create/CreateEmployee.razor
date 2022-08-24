@@ -1,5 +1,5 @@
 ﻿@page "/Create/Employee"
-@attribute [Authorize(Policy = "Admin")]
+@attribute [Authorize]
 
 @inject IDataFactory dataFactory
 @inject NavigationManager navManager
@@ -9,7 +9,7 @@
 <head></head>
 <body>
     <div>
-        <button @onclick="(() => OpenDirectory())">Go To Directory</button>
+        <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
     </div>
     <div>
         <div>
@@ -74,7 +74,7 @@
                     </InputSelect>
                 </div>
                 <div>
-                    <button type="submit" class="form-submit-button">Create Employee</button>
+                    <button type="submit" class="button">Create Employee</button>
                 </div>
             </EditForm>
         </div>
