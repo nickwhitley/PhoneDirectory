@@ -9,12 +9,14 @@
     <PageTitle>Directory Home</PageTitle>
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
+<body>
 <div>
     <h1>Employees</h1>
     
     <div>
         <input type="text" @bind=searchText placeholder="Search employees" aria-label="Search box" 
             @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
+        <button class="button" @onclick="AdminLogin">Admin Login</button>
     </div>
     <div>
         <div>@employees?.Count Employees</div>
@@ -83,7 +85,7 @@
     }
 
 </div>
-    
+</body>
 
 @code 
 {
@@ -259,6 +261,11 @@
         await SaveFilter();
         await ApplyFilter();
         StateHasChanged();
+    }
+
+    private void AdminLogin()
+    {
+        navManager.NavigateTo("/Admin");
     }
 
     private void CreateNewEmployee()

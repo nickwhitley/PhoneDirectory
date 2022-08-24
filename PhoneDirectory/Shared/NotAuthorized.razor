@@ -1,0 +1,31 @@
+﻿@inject NavigationManager navManager
+
+<div>
+    <div>
+        <h2>Login Required</h2>
+    </div>
+    <div>
+        <p>
+            You must be logged in as admin to view this page. Please log in or return to directory.
+        </p>
+    </div>
+    <div>
+        <div>
+            <button class="button" @onclick="AdminLogin">Admin Login</button>
+            <button class="button" @onclick="OpenDirectory">Go To Directory</button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private void AdminLogin()
+    {
+
+    }
+
+    private void OpenDirectory()
+    {
+        navManager.NavigateTo("/");
+    }
+}

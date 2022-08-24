@@ -18,13 +18,13 @@
             <button class="admin-logout-button" @onclick="AdminLogout">Logout</button>
         </div>
     </div>
-    <!--tables-->
     <div>
         <div>
             <input type="text" @bind=employeeSearchText placeholder="Search Employees" aria-label="Search Box"
                 @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
         </div>
         <div>
+            <button class="button" @onclick="CreateNewDepartment">Create New Department</button>
             @foreach(var department in departments)
             {
                 <button class="department-button" value="department" 
@@ -32,6 +32,7 @@
             }
         </div>
         <div>
+            <button class="button" @onclick="CreateNewEmployee">Create New Employee</button>
             @if (employees is null)
             {
             <p><em>Loading...</em></p>
@@ -121,12 +122,22 @@
 
     private void OpenDepartmentDetails(DepartmentModel department)
     {
-
+        navManager.NavigateTo($"DepartmentDetails/{department.Id}");
     }
 
     private void OpenEmployeeDetails(EmployeeModel employee)
     {
         navManager.NavigateTo($"EmployeeDetails/{employee.Id}");
+    }
+
+    private void CreateNewEmployee()
+    {
+        navManager.NavigateTo("Create/Employee");
+    }
+
+    private void CreateNewDepartment()
+    {
+        navManager.NavigateTo("Create/Department");
     }
 
     private async Task OnSearchInput(string text)

@@ -1,0 +1,30 @@
+﻿@page "/DepartmentDetails/{Id:int}"
+
+@inject IDataFactory dataFactory
+@inject NavigationManager navManager
+
+<head>
+    <PageTitle>Department Details</PageTitle>
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
+<body>
+    <div>
+        <button @onclick="(() => OpenDirectory())">Go To Directory</button>
+    </div>
+</body>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private List<EmployeeModel> departmentEmployees;
+
+    protected override async Task OnInitializedAsync()
+    {
+        departmentEmployees = dataFactory.Employees.Where(e => e.DepartmentId == Id).ToList();
+        await base.OnInitializedAsync();
+    }
+
+    private void OpenDirectory()
+    {
+        navManager.NavigateTo("/");
+    }
+}
