@@ -21,7 +21,7 @@
     </div>
     <div>
         <div>
-            <input type="text" @bind=employeeSearchText placeholder="Search Employees" aria-label="Search Box"
+            <input class="search-box" type="text" @bind=employeeSearchText placeholder="Search Employees" aria-label="Search Box"
                 @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
         </div>
         <div>

@@ -21,27 +21,31 @@
                 <ValidationSummary/>
                 <div class="employee-create-form-item">
                     <label for="first-name">First Name</label>
-                    <InputText id="first-name"@bind-Value="newEmployee.FirstName"/>
+                    <InputText class="input-box" id="first-name"@bind-Value="newEmployee.FirstName"/>
                 </div>
                 <div class="employee-create-form-item">
                     <label for="last-name">Last Name</label>
-                    <InputText id="last-name" @bind-Value="newEmployee.LastName"/>
+                    <InputText class="input-box" id="last-name" @bind-Value="newEmployee.LastName"/>
                 </div>
                 <div class="employee-create-form-item">
                     <label for="phone-main">Main Phone</label>
-                    <InputText id="phone-main" @bind-Value="newEmployee.PhoneMain"/>
+                    <InputText class="input-box" id="phone-main" @bind-Value="newEmployee.PhoneMain"/>
                 </div>
                 <div class="employee-create-form-item">
                     <label for="extension">Extension</label>
-                    <InputText id="extension" @bind-Value="newEmployee.Extension"/>
+                    <InputText class="input-box" id="extension" @bind-Value="newEmployee.Extension"/>
                 </div>
                 <div class="employee-create-form-item">
                     <label for="phone-mobile">Mobile Phone</label>
-                    <InputText id="phone-mobile" @bind-Value="newEmployee.PhoneMobile"/>
+                    <InputText class="input-box" id="phone-mobile" @bind-Value="newEmployee.PhoneMobile"/>
                 </div>
                 <div class="employee-create-form-item">
                     <label for="email">Email</label>
-                <InputText id="email" @bind-Value="newEmployee.Email"/>
+                    <InputText class="input-box" id="email" @bind-Value="newEmployee.Email"/>
+                </div>
+                <div>
+                    <label for="notes">Notes</label>
+                    <InputTextArea class="input-box" id="notes" @bind-Value="newEmployee.Notes"></InputTextArea>
                 </div>
                 <div class="employee-create-form-item">
                     <label for="department">Department</label>

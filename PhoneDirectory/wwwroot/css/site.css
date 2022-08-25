@@ -63,6 +63,54 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+.layout-header {
+    background-color: black;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+#button-login {
+    float: right;
+}
+
+#button-admin {
+    float: right;
+    margin-right: 15px;
+}
+
+#button-logout {
+    float: right;
+}
+
+.index-grid-container
+{
+    display: grid;
+    grid-template-columns: 1.15fr 2.5fr;
+    grid-template-rows: 150px auto;
+    grid-template-areas:
+        "header header"
+        "sidebar content"
+}
+
+.grid-item-1
+{
+    grid-area: header;
+}
+.grid-item-2 
+{
+}
+.grid-item-3 {
+    grid-area: sidebar;
+    display: grid;
+    grid-template-columns: auto .75fr;
+    grid-template-areas:
+        "department title";
+}
+.grid-item-4 
+{
+    grid-area: content;
+}
+
 .button {
     display: inline-block;
     outline: 0;
@@ -79,10 +127,105 @@ a, .btn-link {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
 }
 
+.search-box-div{
+}
+.search-box {
+    height: var(--height);
+    font-family: var(--font-fam);
+    border: 1px solid #cbd5e0;
+    color: #2d3748;
+    font-size: 24px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
+    margin-bottom: 5px;
+}
+
+.page-heading
+{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.filter-heading 
+{
+    font-size: 24px;
+}
+
+.department-filter-container {
+    grid-area: department;
+}
+
+#department-filter-button {
+    display: block;
+    margin-top: 5px;
+    color: #2C2F33;
+    border: none;
+}
+    #department-filter-button:hover {
+        background-color: #2C2F33;
+        color: white;
+        box-shadow: 5px 5px 10px #2C2F33;
+        position: relative;
+        transition: background-color .20s, color .20s, box-shadow .20s;
+    }
+    #department-filter-button:focus {
+        background-color: #2C2F33;
+        color: white;
+    }
+
+.title-filter-container
+{
+    grid-area: title;
+    
+}
+
+#title-filter-button {
+    display: block;
+    margin-top: 5px;
+    color: #2C2F33;
+    border: none;
+}
+
+    #title-filter-button:hover {
+        background-color: #2C2F33;
+        color: white;
+        box-shadow: 5px 5px 10px #2C2F33;
+        position: relative;
+        transition: background-color .20s, color .20s, box-shadow .20s;
+    }
+
+    #title-filter-button:focus {
+        background-color: #2C2F33;
+        color: white;
+}
+.dropdown {
+    color: #2d3748;
+    font-size: 18px;
+    border-radius: 4px;
+    outline: 0;
+    border: 1px solid #cbd5e0;
+}
+
 .employee-list-container {
-    margin-left: 250px;
-    margin-top: 10px;
+    margin-left: 100px;
+    margin-top: -30px;
+    margin-bottom: 50px;
     width: 50%;
+    height: 850px;
+    overflow-x: visible;
+    overflow-y: scroll;
+    padding: 10px 10px 10px 10px
+}
+
+::-webkit-scrollbar {
+    width: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 4px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 9999px;
+    background-color: #2C2F33;
 }
 
 .employee-list-item {
@@ -96,7 +239,26 @@ a, .btn-link {
 
 .employee-list-item-content {
     margin-left: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "primary secondary";
 }
+
+.employee-list-primary-info{
+    grid-area: primary;
+}
+
+employee-list-secondary-info {
+    grid-area: secondary;
+    
+}
+
+.employee-list-secondary-info-content {
+    margin-top: 10%;
+}
+
+
 
 .name-text {
     font-size: 21px;

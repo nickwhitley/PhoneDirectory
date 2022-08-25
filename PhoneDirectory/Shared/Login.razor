@@ -3,11 +3,11 @@
 </head>
 <AuthorizeView>
     <Authorized>
-        <button class="button" onclick="location.href='MicrosoftIdentity/Account/SignOut'">Logout</button>
-        <button class="button" onclick="location.href='/Admin'">Admin Portal</button>
+        <button class="button" id="button-logout" onclick="location.href='MicrosoftIdentity/Account/SignOut'">Logout</button>
+        <button class="button" id="button-admin" onclick="location.href='/Admin'">Admin Portal</button>
     </Authorized>
     <NotAuthorized>
-        <button class="button" onclick="location.href='MicrosoftIdentity/Account/SignIn'">Login</button>
+        <button class="button" id="button-login" onclick="location.href='MicrosoftIdentity/Account/SignIn'">Admin Login</button>
     </NotAuthorized>
 </AuthorizeView>
 
