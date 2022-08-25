@@ -45,7 +45,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="email">Email</label>
-                                <InputText class="input-box" id="email" @bind-Value="newEmployee.Email"/>
+                                <InputText class="input-box-email" id="email" @bind-Value="newEmployee.Email"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="department">Department</label>
@@ -82,7 +82,7 @@
                                 <InputTextArea class="input-text-area" id="notes" @bind-Value="newEmployee.Notes"/>
                             </div>
                             <div>
-                               <button type="submit" class="button">Submit</button>
+                               <button type="submit" class="button" id="create-form-button">Submit</button>
 
                             </div>
                         </EditForm>
@@ -134,7 +134,7 @@
                 Email = newEmployee.Email
             };
 
-        dataFactory.AddEmployeeAsync(employeeConvert);
+        //dataFactory.AddEmployeeAsync(employeeConvert);
         OpenDirectory();
     }
 

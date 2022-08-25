@@ -372,7 +372,7 @@ employee-list-secondary-info {
 }
 
 .department-details-heading, .department-create-heading, .employee-create-heading {
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 .employee-form-item, .department-form-item {
@@ -384,22 +384,21 @@ employee-list-secondary-info {
     border: 1px solid #cbd5e0;
     color: #2d3748;
     font-size: 18px;
+    width: 325px;
+    overflow-x: visible;
     border-radius: 4px;
     background-color: white;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
 }
 
     .input-box:disabled {
-        background-color: #99AAB5;
+        font-weight: 600;
     }
 
-    .input-box:valid {
-        border: 2px solid #57F287;
-    }
-
-    .input-box:invalid {
-        border: 2px solid #FF9494;
-    }
+.invalid {
+    border: 2px solid #FF9494;
+    background-color: #FF9494;
+}
 
 .input-select {
     border: 1px solid #cbd5e0;
@@ -410,17 +409,9 @@ employee-list-secondary-info {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
 }
 
-.input-select:disabled {
-    background-color: #99AAB5;
-}
-
-.input-select:valid {
-    border: 2px solid #57F287;
-}
-
-.input-select:invalid {
-    border: 2px solid #FF9494;
-}
+    .input-select:disabled {
+        font-weight: 600;
+    }
 
 .input-text-area {
     border: 1px solid #cbd5e0;
@@ -431,23 +422,15 @@ employee-list-secondary-info {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
 }
 
-.input-text-area:disabled {
-    background-color: #99AAB5;
-}
-
-.input-text-area:valid {
-    border: 2px solid #57F287;
-}
-
-.input-text-area:invalid {
-    border: 2px solid #FF9494;
-}
+    .input-text-area:disabled {
+        font-weight: 600;
+    }
 
 #admin-directory-button {
     margin-bottom: 15px;
 }
 
-.admin-grid-container{
+.admin-grid-container {
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-template-rows: 150px auto;
@@ -483,3 +466,7 @@ employee-list-secondary-info {
         position: relative;
         transition: background-color .20s, color .20s, box-shadow .20s;
     }
+
+#create-form-button{
+    margin-top: 10px;
+}

@@ -23,7 +23,7 @@
                 <Authorized>
                 <div class="employee-edit-form-container">
                     <div>
-                        <h1>Edit Employee - @employee.FirstName @employee.LastName</h1>    
+                        <h1>Edit Employee</h1>    
                     </div>
                     <div class="employee-details-form">
                         <EditForm Model="employee" OnValidSubmit="SaveEmployeeForm">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="email">Email</label>
-                                <InputText class="input-box" id="email" @bind-Value="employee.Email" @onchange="OnInfoChange"/>
+                                <InputText class="input-box" id="email-box" @bind-Value="employee.Email" @onchange="OnInfoChange"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="department">Department</label>
@@ -100,7 +100,7 @@
                             </div>
                             <div>
                                <button type="submit" class="button">Submit</button>
-
+                               <button type="reset" class="button">Reset</button>
                             </div>
                         </EditForm>
                     </div>

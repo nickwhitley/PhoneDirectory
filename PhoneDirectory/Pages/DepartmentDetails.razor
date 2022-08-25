@@ -21,7 +21,7 @@
                 <Authorized>
                     <div class="department-edit-form-container">
                         <div>
-                            <h1>Edit Department - @department.Name</h1>
+                            <h1 id="department-edit-header">Edit Department - @department.Name</h1>
                         </div>
                         <div>
                             <EditForm Model="department" OnValidSubmit="SaveDepartmentForm">
@@ -29,7 +29,7 @@
                                 <ValidationSummary />
                                 <div class="department-form-item">
                                     <label class="department-form-label" for="department-name">Department Name</label>
-                                    <InputText class="input-box" id="department-name" @bind-Value="department.Name"/>
+                                    <InputText class="input-box" id="department-name" placeholder="@department.Name" @bind-Value="tempDepartmentName">@department.Name</InputText>
                                 </div>
                                 <div>
                                     <button type="submit" class="button">Submit</button>
@@ -67,6 +67,8 @@
     private List<EmployeeModel> departmentEmployees;
     private DepartmentModel department;
 
+    private string tempDepartmentName;
+
     protected override async Task OnInitializedAsync()
     {
         department = (DepartmentModel) dataFactory.Departments.Where(d => d.Id == Id).First();
@@ -75,7 +77,8 @@
     }
 
     private void SaveDepartmentForm(){
-
+        department.Name = tempDepartmentName;
+        //dataFactory;
     }
 
     private void OpenCreateDepartment(){
