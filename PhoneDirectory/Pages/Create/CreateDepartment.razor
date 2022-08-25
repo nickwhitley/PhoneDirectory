@@ -6,10 +6,20 @@
 
 @using Models
 
-<head></head>
+<head>
+    <PageTitle>Create Department</PageTitle>
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
 <body>
-    <div>
-        <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
+    <div class="department-create-grid-container">
+        <div class="department-create-heading">
+            <h3 class="page-heading">Create Department</h3>
+            <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
+        </div>
+    </div>
+
+    <div class="department-create-form-container">
+
     </div>
     <div>
         <div>

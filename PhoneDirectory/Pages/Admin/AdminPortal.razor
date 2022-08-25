@@ -15,9 +15,6 @@
         <div>
             <button class="button" @onclick="OpenDirectory">Go To Directory</button>
         </div>
-        <div>
-            <button class="button" @onclick="AdminLogout">Logout</button>
-        </div>
     </div>
     <div>
         <div>
@@ -25,7 +22,6 @@
                 @oninput="((txt) => OnSearchInput((string)txt.Value))"/>
         </div>
         <div>
-            <button class="button" @onclick="CreateNewDepartment">Create New Department</button>
             @foreach(var department in departments)
             {
                 <button class="button" value="department" 
@@ -33,7 +29,6 @@
             }
         </div>
         <div>
-            <button class="button" @onclick="CreateNewEmployee">Create New Employee</button>
             @if (employees is null)
             {
             <p><em>Loading...</em></p>

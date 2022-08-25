@@ -8,19 +8,77 @@
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
+    <div class="department-details-grid-container">
+        <div class="department-details-heading">
+            <h3 class="page-heading">Department Details</h3>
+            <div>
+                <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
+                <AuthorizeView>
+                    <button class="button" @onclick="(() => OpenCreateDepartment())">Create Department</button>
+                </AuthorizeView>
+            </div>
+        </div>
+
+        <div>
+            <AuthorizeView Context="Auth"> 
+                <Authorized>
+                    <div class="department-edit-form-container">
+                        <div>
+                            <h1>Edit Department</h1>
+                        </div>
+                        <div>
+                            <EditForm Model="department" OnValidSubmit="SaveDepartmentForm">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
+                                <div class="department-form-item">
+                                    <label class="department-form-label" for="department-name">Department Name:</label>
+                                    <InputText class="input-box" id="department-name" @bind-Value="department.Name"/>
+                                </div>
+                                <div>
+                                    <button type="submit" class="button">Submit</button>
+                                </div>
+                            </EditForm>
+                        </div>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <div>
+                        <EditForm Model="department">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+                                <div class="department-form-item">
+                                    <label class="department-form-label" for="department-name">Department Name:</label>
+                                    <InputText disabled class="input-box" id="department-name" @bind-Value="department.Name"/>
+                                </div>
+                            </EditForm>
+                        </div>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    </div>
     <div>
-        <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
+        
     </div>
 </body>
 @code {
     [Parameter]
     public int Id { get; set; }
     private List<EmployeeModel> departmentEmployees;
+    private DepartmentModel department;
 
     protected override async Task OnInitializedAsync()
     {
+        department = (DepartmentModel) dataFactory.Departments.Where(d => d.Id == Id).First();
         departmentEmployees = dataFactory.Employees.Where(e => e.DepartmentId == Id).ToList();
         await base.OnInitializedAsync();
+    }
+
+    private void SaveDepartmentForm(){
+
+    }
+
+    private void OpenCreateDepartment(){
+        navManager.NavigateTo("/Create/Department");
     }
 
     private void OpenDirectory()

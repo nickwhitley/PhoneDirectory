@@ -5,6 +5,7 @@
 
 <head>
     <PageTitle>Employee Details</PageTitle>
+    <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
     <div class="employee-details-grid-container">
@@ -12,9 +13,6 @@
             <h3 class="page-heading">Employee Details</h3>
             <div>
                 <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
-                <AuthorizeView>
-                    <button class="button" @onclick="(() => NewEmployeePage())">New Employee</button>
-                </AuthorizeView>
             </div>
         </div>
 

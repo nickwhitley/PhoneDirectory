@@ -63,8 +63,15 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+.layout-header-grid{
+    display: grid;
+    grid-template-columns: auto 35%;
+    grid-template-areas:
+        "blank header";
+}
+
 .layout-header {
-    background-color: black;
+    grid-area: header;
     margin-top: 15px;
     margin-right: 15px;
 }
@@ -80,6 +87,16 @@ a, .btn-link {
 
 #button-logout {
     float: right;
+}
+
+#button-create-employee {
+    float: right;
+    margin-right: 15px;
+}
+
+#button-create-department {
+    float: right;
+    margin-right: 15px;
 }
 
 .index-grid-container
