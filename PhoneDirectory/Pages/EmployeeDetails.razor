@@ -7,13 +7,15 @@
     <PageTitle>Employee Details</PageTitle>
 </head>
 <body>
-    <div>
-        <h3>Employee Details</h3>
-        <div>
-            <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
-            <AuthorizeView>
-                <button class="button" @onclick="(() => NewEmployeePage())">New Employee</button>
-            </AuthorizeView>
+    <div class="employee-details-grid-container">
+        <div class="employee-details-heading">
+            <h3 class="page-heading">Employee Details</h3>
+            <div>
+                <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
+                <AuthorizeView>
+                    <button class="button" @onclick="(() => NewEmployeePage())">New Employee</button>
+                </AuthorizeView>
+            </div>
         </div>
 
         <!--Employee edit form-->
@@ -21,6 +23,7 @@
         <div>
             <AuthorizeView Context="Auth">
                 <Authorized>
+                <div class="employee-edit-form-container">
                     <div>
                         <h1>Edit Employee</h1>    
                     </div>
@@ -29,32 +32,32 @@
                             <DataAnnotationsValidator />
                              <ValidationSummary />
                             <div class="employee-form-item">
-                                <label for="first-name">First Name</label>
+                                <label class="employee-form-label" for="first-name">First Name</label>
                                 <InputText class="input-box" id="first-name" @bind-Value="employee.FirstName"/>
                             </div>
                             <div class="employee-form-item">
-                                <label for="last-name">Last Name</label>
+                                <label class="employee-form-label" for="last-name">Last Name</label>
                                 <InputText class="input-box" id="last-name" @bind-Value="employee.LastName" @onchange="OnInfoChange"/>
                             </div>
                             <div class="employee-form-item">
-                                <label for="phone-main">Main Phone</label>
+                                <label class="employee-form-label" for="phone-main">Main Phone</label>
                                 <InputText class="input-box" id="phone-main" @bind-Value="employee.PhoneMain" @onchange="OnInfoChange"/>
                             </div>
                             <div class="employee-form-item">
-                                <label for="extension">Extension</label>
+                                <label class="employee-form-label" for="extension">Extension</label>
                                 <InputText class="input-box" id="extension" @bind-Value="employee.Extension" @onchange="OnInfoChange"/>
                             </div>
                             <div class="employee-form-item">
-                                <label for="phone-mobile">Mobile Phone</label>
+                                <label class="employee-form-label" for="phone-mobile">Mobile Phone</label>
                                 <InputText class="input-box" id="phone-mobile" @bind-Value="employee.PhoneMobile" @onchange="OnInfoChange"/>
                             </div>
                             <div class="employee-form-item">
-                                <label for="email">Email</label>
+                                <label class="employee-form-label" for="email">Email</label>
                                 <InputText class="input-box" id="email" @bind-Value="employee.Email" @onchange="OnInfoChange"/>
                             </div>
                             <div class="employee-form-item">
-                                <label for="department">Department</label>
-                                <InputSelect id="department" @bind-Value="employee.Department.Name" @onchange="OnInfoChange">
+                                <label class="employee-form-label" for="department">Department</label>
+                                <InputSelect class="input-select" id="department" @bind-Value="employee.Department.Name" @onchange="OnInfoChange">
                                     @foreach (var department in dataFactory.Departments)
                                     {
                                         if (department == employee.Department)
@@ -69,8 +72,8 @@
                                 </InputSelect>
                             </div>
                             <div class="employee-form-item">
-                                <label for="title">Title</label>
-                                <InputSelect id="title" @bind-Value="employee.Title.Name" @onchange="OnInfoChange">
+                                <label class="employee-form-label" for="title">Title</label>
+                                <InputSelect class="input-select" id="title" @bind-Value="employee.Title.Name" @onchange="OnInfoChange">
                                     @foreach (var title in dataFactory.Titles)
                                     {
                                         if (title == employee.Title)
@@ -85,8 +88,8 @@
                                 </InputSelect>
                             </div>
                             <div class="employee-form-item">
-                                <label for="supervisor">Supervisor</label>
-                                <InputSelect id="supervisor" @bind-Value="employee.SupId" @onchange="OnInfoChange">
+                                <label class="employee-form-label" for="supervisor">Supervisor</label>
+                                <InputSelect class="input-select" id="supervisor" @bind-Value="employee.SupId" @onchange="OnInfoChange">
                                     @foreach (var supervisor in availableSupervisors)
                                         {
                                             <option value="@supervisor.Id">@supervisor.FirstName @supervisor.LastName (@supervisor.Title.Name)</option>
@@ -94,8 +97,8 @@
                                 </InputSelect>
                             </div>
                             <div class="employee-form-item">
-                                <label for="notes">Notes</label>
-                                <InputTextArea class="input-box" id="notes" @bind-Value="employee.Notes"/>
+                                <label class="employee-form-label" for="notes">Notes</label>
+                                <InputTextArea class="input-text-area" id="notes" @bind-Value="employee.Notes"/>
                             </div>
                             <div>
                                <button type="submit" class="button">Submit</button>
@@ -103,48 +106,88 @@
                             </div>
                         </EditForm>
                     </div>
+                </div>
                 </Authorized>
                 <NotAuthorized>
-                    <div>
-                        <div>
-                            <label id="employee-details-name">@employee.FirstName @employee.LastName</label>
-                        </div>
-                        <div>
-                            <label for="employee-details-department">Department</label>
-                            <span id="employee-details-department">@employee.Department.Name</span>
-                        </div>
-                        <div>
-                            <label for="employee-details-title">Title</label>
-                            <span id="employee-details-title">@employee.Title.Name</span>
-                        </div>
-                        <div>
-                            <label for="employee-details-phone-main">Main Phone</label>
-                            <span id="employee-details-phone-main">@employee.PhoneMain</span>
-                        </div>
-                        <div>
-                            <label for="employee-details-extension">Extension</label>
-                            <span id="employee-details-extension">@employee.Extension</span>
-                        </div>
-                        <div>
-                            <label for="employee-details-phone-mobile">Mobile Phone</label>
-                            <span id="employee-details-phone-mobile">@employee.PhoneMobile</span>
-                        </div>
-                        <div>
-                            <label for="employee-details-email">Email</label>
-                            <span id="employee-details-email">@employee.Email</span>
-                        </div>
+                    <div class="employee-details-form">
+                        <EditForm Model="employee" OnValidSubmit="SaveEmployeeForm">
+                            <DataAnnotationsValidator />
+                             <ValidationSummary />
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="first-name">First Name:</label>
+                                <InputText disabled class="input-box" id="first-name" @bind-Value="employee.FirstName"/>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="last-name">Last Name:</label>
+                                <InputText disabled class="input-box" id="last-name" @bind-Value="employee.LastName" @onchange="OnInfoChange"/>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="phone-main">Main Phone:</label>
+                                <InputText disabled class="input-box" id="phone-main" @bind-Value="employee.PhoneMain" @onchange="OnInfoChange"/>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="extension">Extension:</label>
+                                <InputText disabled class="input-box" id="extension" @bind-Value="employee.Extension" @onchange="OnInfoChange"/>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="phone-mobile">Mobile Phone:</label>
+                                <InputText disabled class="input-box" id="phone-mobile" @bind-Value="employee.PhoneMobile" @onchange="OnInfoChange"/>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="email">Email:</label>
+                                <InputText disabled class="input-box" id="email" @bind-Value="employee.Email" @onchange="OnInfoChange"/>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="department">Department:</label>
+                                <InputSelect disabled class="input-select" id="department" @bind-Value="employee.Department.Name" @onchange="OnInfoChange">
+                                    @foreach (var department in dataFactory.Departments)
+                                    {
+                                        if (department == employee.Department)
+                                        {
+                                            <option selected value="@department.Name">@department.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@department.Name">@department.Name</option>
+                                        }
+                                    }
+                                </InputSelect>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="title">Title:</label>
+                                <InputSelect disabled class="input-select" id="title" @bind-Value="employee.Title.Name" @onchange="OnInfoChange">
+                                    @foreach (var title in dataFactory.Titles)
+                                    {
+                                        if (title == employee.Title)
+                                        {
+                                            <option selected value="@title.Name">@title.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@title.Name">@title.Name</option>
+                                        }
+                                    }
+                                </InputSelect>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" for="supervisor">Supervisor:</label>
+                                <InputSelect disabled class="input-select" id="supervisor" @bind-Value="employee.SupId" @onchange="OnInfoChange">
+                                    @foreach (var supervisor in availableSupervisors)
+                                        {
+                                            <option value="@supervisor.Id">@supervisor.FirstName @supervisor.LastName (@supervisor.Title.Name)</option>
+                                        }
+                                </InputSelect>
+                            </div>
+                            <div class="employee-form-item">
+                                <label class="employee-form-label" id="notes-label" for="notes">Notes:</label>
+                                <InputTextArea disabled class="input-text-area" id="notes" @bind-Value="employee.Notes"/>
+                            </div>
+                        </EditForm>
                     </div>
                 </NotAuthorized>
             </AuthorizeView>
-        </div>
-
-        <!--employee details-->
-        <div>
-
-        </div>
-        
+        </div>        
     </div>
-    
 </body>
     
     
@@ -222,6 +265,11 @@
     {
         navManager.NavigateTo($"/Create/Employee");
 
+    }
+
+    private void OpenSupervisorPage()
+    {
+        navManager.NavigateTo($"/EmployeeDetails/{employee.Supervisor.Id}", forceLoad: true);
     }
 
     private void OpenDirectory()

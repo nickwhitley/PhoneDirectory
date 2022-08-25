@@ -265,10 +265,143 @@ employee-list-secondary-info {
     font-weight: 700;
 }
 
+#employee-details-name{
+    font-size: 24px;
+}
+
 .department-name {
     font-weight: 700;
     margin-right: 5px;
 }
 
 .employee-list-linebreak {
+}
+
+.employee-details-item-container{
+
+}
+
+.employee-primary-details-item{
+    display: block;
+}
+
+.employee-secondary-details-item{
+
+}
+
+#employee-details-department {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+#employee-details-title {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.employee-details-container{
+    margin-top: 20px;
+}
+
+.employee-details-grid-container{
+    display: grid;
+    grid-template-rows: 100px auto;
+    grid-template-areas:
+        "heading"
+        "details";
+}
+
+.employee-details-heading {
+    grid-area: heading;
+}
+
+.employee-edit-form-container{
+    grid-area: details;
+}
+
+.employee-details-container{
+    grid-area: details;
+    display: grid;
+    grid-template-columns: 0.5fr 0.75fr 3fr;
+    grid-template-areas:
+        "primary-details secondary-details sup-tree"
+}
+
+.employee-form-label {
+    font-weight: 600;
+    font-size: 24px;
+    margin-right: 6px;
+}
+
+#notes-label{
+    margin-bottom: 40px;
+    vertical-align: top;
+}
+
+.employee-form-item{
+    margin-bottom: 6px;
+    display: flex;
+}
+
+.input-box {
+    border: 1px solid #cbd5e0;
+    color: #2d3748;
+    font-size: 18px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+    .input-box:disabled {
+        background-color: #99AAB5;
+    }
+
+    .input-box:valid {
+        border: 2px solid #57F287;
+    }
+
+    .input-box:invalid {
+        border: 2px solid #FF9494;
+    }
+
+.input-select {
+    border: 1px solid #cbd5e0;
+    color: #2d3748;
+    font-size: 18px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.input-select:disabled {
+    background-color: #99AAB5;
+}
+
+.input-select:valid {
+    border: 2px solid #57F287;
+}
+
+.input-select:invalid {
+    border: 2px solid #FF9494;
+}
+
+.input-text-area {
+    border: 1px solid #cbd5e0;
+    color: #2d3748;
+    font-size: 18px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.input-text-area:disabled {
+    background-color: #99AAB5;
+}
+
+.input-text-area:valid {
+    border: 2px solid #57F287;
+}
+
+.input-text-area:invalid {
+    border: 2px solid #FF9494;
 }
