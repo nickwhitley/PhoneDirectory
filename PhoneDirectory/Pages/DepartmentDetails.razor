@@ -13,9 +13,6 @@
             <h3 class="page-heading">Department Details</h3>
             <div>
                 <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
-                <AuthorizeView>
-                    <button class="button" @onclick="(() => OpenCreateDepartment())">Create Department</button>
-                </AuthorizeView>
             </div>
         </div>
 
@@ -24,14 +21,14 @@
                 <Authorized>
                     <div class="department-edit-form-container">
                         <div>
-                            <h1>Edit Department</h1>
+                            <h1>Edit Department - @department.Name</h1>
                         </div>
                         <div>
                             <EditForm Model="department" OnValidSubmit="SaveDepartmentForm">
                                 <DataAnnotationsValidator />
                                 <ValidationSummary />
                                 <div class="department-form-item">
-                                    <label class="department-form-label" for="department-name">Department Name:</label>
+                                    <label class="department-form-label" for="department-name">Department Name</label>
                                     <InputText class="input-box" id="department-name" @bind-Value="department.Name"/>
                                 </div>
                                 <div>
@@ -54,6 +51,10 @@
                         </div>
                 </NotAuthorized>
             </AuthorizeView>
+        </div>
+
+        <div class="department-details-employess">
+
         </div>
     </div>
     <div>
