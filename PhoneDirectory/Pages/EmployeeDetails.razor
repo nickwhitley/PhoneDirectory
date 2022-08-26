@@ -101,8 +101,9 @@
                                 <InputTextArea class="input-text-area" id="notes" @bind-Value="@employee.Notes" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div>
-                               <button class="button" @onclick="SaveEmployeeForm">@submitButtonText</button>
+                               <button class="button" id="submit-button" @onclick="SaveEmployeeForm">@submitButtonText</button>
                                <button class="button" @onclick="ResetForm">Reset</button>
+                               <button class="button" id="delete-employee-button" @onclick="DeleteEmployee">@deleteButtonText</button>
                             </div>
                         </EditForm>
                     </div>
@@ -202,6 +203,8 @@
     private string submitButtonText;
     private bool changesMade = false;
     private bool changesSaved = false;
+    private bool confirmDelete = false;
+    private string deleteButtonText;
 
 
     protected override async Task OnInitializedAsync()
@@ -212,6 +215,7 @@
         employee = employeesList.First(e => e.Id == Id);
         availableSupervisors = PopulateAvailableSupervisors();
         submitButtonText = "Submit";
+        deleteButtonText = "Delete Employee";
 
 
 
@@ -260,9 +264,17 @@
         navManager.NavigateTo($"/EmployeeDetails/{employee.Id}", forceLoad: true);
     }
 
-    private void OpenSupervisorPage()
+    private async void DeleteEmployee()
     {
-        navManager.NavigateTo($"/EmployeeDetails/{employee.Supervisor.Id}", forceLoad: true);
+        if(deleteButtonText == "Delete Employee"){
+            deleteButtonText = "Confirm Delete";
+            StateHasChanged();
+        } else if(deleteButtonText == "Confirm Delete"){
+            await dataFactory.DeleteEmployeeAsync(employee);
+            deleteButtonText = "Employee Deleted!";
+            await Task.Delay(3500);
+            OpenDirectory();
+        }
     }
 
     private void OpenDirectory()

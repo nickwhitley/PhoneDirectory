@@ -115,7 +115,7 @@ namespace PhoneDirectoryLibrary.Data
 
         public async Task DeleteEmployeeAsync(EmployeeModel employee)
         {
-            string storedProc = "dbo.spEmployee_DeleteById";
+            string storedProc = "spEmployee_DeleteById";
 
             await _database.SaveDataAsync(storedProc, new { @id = employee.Id });
         }

@@ -38,6 +38,11 @@ namespace PhoneDirectoryLibrary.Data
             await _employeeData.UpdateEmployeeAsync(employee);
         }
 
+        public async Task DeleteEmployeeAsync(EmployeeModel employee)
+        {
+            await _employeeData.DeleteEmployeeAsync(employee);
+        }
+
         public async Task AddEmployeeAsync(EmployeeModel employee)
         {
             await _employeeData.AddEmployeeAsync(employee);

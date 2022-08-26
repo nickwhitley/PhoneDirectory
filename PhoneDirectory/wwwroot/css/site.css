@@ -148,8 +148,22 @@ a, .btn-link {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
 }
 
-.search-box-div{
+#delete-employee-button{
+    border: 1px solid red;
+    color: red;
 }
+
+    #delete-employee-button:hover {
+        background-color: #FFA4A4;
+        color: #2C2F33;
+    }
+
+#submit-button{
+
+}
+    #submit-button:hover, #create-form-button:hover{
+        background-color: lightgreen;
+    }
 .search-box {
     height: var(--height);
     font-family: var(--font-fam);
@@ -399,6 +413,17 @@ employee-list-secondary-info {
         color: #2d3748;
         font-size: 18px;
     }
+
+.input-box-email {
+    border: 1px solid #cbd5e0;
+    color: #2d3748;
+    font-size: 18px;
+    width: 350px;
+    overflow-x: visible;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
+}
 
 .invalid {
     border: 2px solid #FF9494;

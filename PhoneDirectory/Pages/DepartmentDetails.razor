@@ -24,7 +24,7 @@
                             <h1 id="department-edit-header">Edit Department - @department.Name</h1>
                         </div>
                         <div>
-                            <EditForm Model="department" OnValidSubmit="SaveDepartmentForm">
+                            <EditForm Model="department">
                                 <DataAnnotationsValidator />
                                 <ValidationSummary />
                                 <div class="department-form-item">
@@ -32,7 +32,7 @@
                                     <InputText class="input-box" id="department-name" placeholder="@department.Name" @bind-Value="tempDepartmentName">@department.Name</InputText>
                                 </div>
                                 <div>
-                                    <button type="submit" class="button">Submit</button>
+                                    <button id="submit-button" class="button" @onclick="SaveDepartmentForm">Submit</button>
                                 </div>
                             </EditForm>
                         </div>

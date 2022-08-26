@@ -20,7 +20,7 @@
         <div class="employee-create-form-container">
             <AuthorizeView Context="Auth">
                 <Authorized>
-                    <EditForm Model="newEmployee" OnValidSubmit="SaveNewEmployee">
+                    <EditForm Model="newEmployee">
                             <DataAnnotationsValidator />
                              <ValidationSummary />
                             <div class="employee-form-item">
@@ -84,7 +84,7 @@
                                 <InputTextArea class="input-text-area" id="notes" @bind-Value="newEmployee.Notes"/>
                             </div>
                             <div>
-                               <button type="submit" class="button" id="create-form-button">Submit</button>
+                               <button type="submit" class="button" id="create-form-button" @onclick="SaveNewEmployee">@submitButtonText</button>
 
                             </div>
                         </EditForm>
@@ -100,6 +100,7 @@
     private List<TitleModel> Titles;
     private List<DepartmentModel> Departments;
     private List<EmployeeModel> availableSupervisors = new List<EmployeeModel>();
+    private string submitButtonText;
     //may not use!!!
     private string firstName;
     private string lastName;
@@ -116,6 +117,7 @@
     {
         Titles = dataFactory.Titles;
         Departments = dataFactory.Departments;
+        submitButtonText = "Create Employee";
 
         await base.OnInitializedAsync();
     }
@@ -136,7 +138,8 @@
                 Email = newEmployee.Email
             };
 
-        //dataFactory.AddEmployeeAsync(employeeConvert);
+        dataFactory.AddEmployeeAsync(employeeConvert);
+        submitButtonText = "Employee Created!";
         OpenDirectory();
     }
 
@@ -145,9 +148,7 @@
         if(newEmployee.TitleId != 0 && newEmployee.DepartmentId != 0)
         {
             availableSupervisors = dataFactory.GetAvailableSupervisors(newEmployee.TitleId, newEmployee.DepartmentId);
-            if(availableSupervisors != null){
-                newEmployee.SupId = availableSupervisors[0].Id;
-            }
+            
             
         }
     }

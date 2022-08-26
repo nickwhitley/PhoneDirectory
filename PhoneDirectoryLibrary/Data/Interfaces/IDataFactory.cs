@@ -14,5 +14,6 @@
         Task AddEmployeeAsync(EmployeeModel employee);
         Task AddDepartment(DepartmentModel department);
         void ClearCache();
+        Task DeleteEmployeeAsync(EmployeeModel employee);
     }
 }
