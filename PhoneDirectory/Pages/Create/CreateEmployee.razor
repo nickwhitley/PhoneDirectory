@@ -122,7 +122,7 @@
         await base.OnInitializedAsync();
     }
 
-    private void SaveNewEmployee()
+    private async Task SaveNewEmployee()
     {
         var employeeConvert = new EmployeeModel()
             {
@@ -137,10 +137,18 @@
                 SupId = newEmployee.SupId,
                 Email = newEmployee.Email
             };
-
-        dataFactory.AddEmployeeAsync(employeeConvert);
-        submitButtonText = "Employee Created!";
-        OpenDirectory();
+            if(newEmployee.FirstName == null){
+                submitButtonText = "Nothing to submit!";
+                await Task.Delay(2000);
+                StateHasChanged();
+                submitButtonText = "Create Employee";
+            } else if(newEmployee.FirstName != null){
+                await dataFactory.AddEmployeeAsync(employeeConvert);
+                submitButtonText = "Employee Created!";
+                await Task.Delay(2000);
+                OpenDirectory();
+            }
+        
     }
 
     private void OnInfoChange(FocusEventArgs args)

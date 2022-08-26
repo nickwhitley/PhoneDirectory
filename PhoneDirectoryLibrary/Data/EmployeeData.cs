@@ -66,7 +66,6 @@ namespace PhoneDirectoryLibrary.Data
 
         public async Task UpdateEmployeeAsync(EmployeeModel employee)
         {
-            ///TODO - Make sure to update local employee model before reaching this point.
             _cache.Remove(cacheName);
 
             string storedProc = "spEmployee_Update";
