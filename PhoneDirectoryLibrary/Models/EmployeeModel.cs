@@ -17,11 +17,13 @@ namespace PhoneDirectoryLibrary.Models
         public string LastName { get; set; }
         [Required]
         [MaxLength(20)]
+        [Phone]
         [RegularExpression(@"^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$", ErrorMessage = "Invalid phone number format.")]
         public string PhoneMain { get; set; }
         [Required]
         [MaxLength(20)]
-        [RegularExpression(@"^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$", ErrorMessage = "Invalid phone number format.")]
+        [Phone]
+        
         public string PhoneMobile { get; set; }
         [MinLength(3)]
         [MaxLength(5)]

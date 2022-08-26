@@ -21,6 +21,14 @@ namespace PhoneDirectory.Pages.Create
         private async Task SaveNewEmployee()
         {
             submitButtonText = "Employee Created!";
+            if(newEmployee.DepartmentId == 0)
+            {
+                newEmployee.DepartmentId = 1;
+            }
+            if(newEmployee.TitleId == 0)
+            {
+                newEmployee.TitleId = 9;
+            }
             await dataFactory.AddEmployeeAsync(newEmployee);
 
             await Task.Delay(2000);
