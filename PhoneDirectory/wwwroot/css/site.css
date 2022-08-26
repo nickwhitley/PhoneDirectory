@@ -175,6 +175,11 @@ a, .btn-link {
     margin-bottom: 5px;
 }
 
+.error-heading {
+    font-size: 34px;
+    color: red;
+}
+
 .page-heading
 {
     font-size: 30px;

@@ -19,7 +19,8 @@
         </div>
 
         <!--Employee edit form-->
-
+    @if(validId) 
+    {
         <div>
             <AuthorizeView Context="Auth">
                 <Authorized>
@@ -187,7 +188,12 @@
                     </div>
                 </NotAuthorized>
             </AuthorizeView>
-        </div>        
+        </div>
+    } else 
+    {
+        <h1 class="error-heading">This employee does not exist.</h1>
+    }
+                
     </div>
 </body>
     
@@ -205,18 +211,25 @@
     private bool changesSaved = false;
     private bool confirmDelete = false;
     private string deleteButtonText;
+    private bool validId;
 
 
     protected override async Task OnInitializedAsync()
     {
         var employeesList = dataFactory.Employees;
 
+        if(!employeesList.Any(e => e.Id == Id))
+        {
+            validId = false;
+        } else
+        {
+            employee = employeesList.First(e => e.Id == Id);
+            availableSupervisors = PopulateAvailableSupervisors();
+            validId = true;
+        }
 
-        employee = employeesList.First(e => e.Id == Id);
-        availableSupervisors = PopulateAvailableSupervisors();
         submitButtonText = "Submit";
         deleteButtonText = "Delete Employee";
-
 
 
         await base.OnInitializedAsync();
