@@ -152,16 +152,6 @@ namespace PhoneDirectory.Pages
             StateHasChanged();
         }
 
-        private void AdminLogin()
-        {
-            navManager.NavigateTo("/Admin");
-        }
-
-        private void CreateNewEmployee()
-        {
-            navManager.NavigateTo("Create");
-        }
-
         private void OpenEmployeeDetails(EmployeeModel employee)
         {
             navManager.NavigateTo($"/EmployeeDetails/{employee.Id}");

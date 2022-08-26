@@ -207,7 +207,8 @@ a, .btn-link {
         position: relative;
         transition: background-color .20s, color .20s, box-shadow .20s;
     }
-    #department-filter-button:focus {
+
+    #department-filter-button-selected {
         background-color: #2C2F33;
         color: white;
     }
@@ -233,10 +234,11 @@ a, .btn-link {
         transition: background-color .20s, color .20s, box-shadow .20s;
     }
 
-    #title-filter-button:focus {
+    #title-filter-button-selected {
         background-color: #2C2F33;
         color: white;
-}
+    }
+
 .dropdown {
     color: #2d3748;
     font-size: 18px;

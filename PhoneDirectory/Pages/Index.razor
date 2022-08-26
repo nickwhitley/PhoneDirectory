@@ -45,21 +45,51 @@
         <div class="grid-item-3">
             <div class="department-filter-container">
                 <h6 class="filter-heading">Departments</h6>
-                <button class="button" id="department-filter-button" selected value="All" @onclick='(() => OnDepartmentClick("All"))'>All</button>
-                    @foreach (var department in departments)
+                @if(selectedDepartment == "All")
+                {
+                    <button class="button" id="department-filter-button-selected" selected value="All" @onclick='(() => OnDepartmentClick("All"))'>All</button>
+                } else
+                {
+                    <button class="button" id="department-filter-button" selected value="All" @onclick='(() => OnDepartmentClick("All"))'>All</button>
+                }
+                
+                @foreach (var department in departments)
+                    {
+                        @if(selectedDepartment == department.Name)
                         {
-                                <button class="button" id="department-filter-button" @onclick="(() => OnDepartmentClick(department.Name))">@department.Name</button>
+                            <button class="button" id="department-filter-button-selected" @onclick="(() => OnDepartmentClick(department.Name))">@department.Name</button>
+                        } 
+                        else
+                        {
+                            <button class="button" id="department-filter-button" @onclick="(() => OnDepartmentClick(department.Name))">@department.Name</button>
                         }
+
+                        
+                    }
                 
             </div>
             <div>
                 <div class="title-filter-container">
                     <h6 class="filter-heading">Titles</h6>
-                    <button class="button" id="title-filter-button" selected value="All" @onclick='(() => OnTitleClick("All"))'>All</button>
-                        @foreach (var title in titles)
+                    @if(selectedTitle == "All")
+                    {
+                        <button class="button" id="title-filter-button-selected" selected value="All" @onclick='(() => OnTitleClick("All"))'>All</button>
+                    } else
+                    {
+                        <button class="button" id="title-filter-button" selected value="All" @onclick='(() => OnTitleClick("All"))'>All</button>
+                    }
+                    
+                    @foreach (var title in titles)
+                    {
+                        @if(selectedTitle == title.Name)
+                        {
+                            <button class="button" id="title-filter-button-selected" @onclick="(() => OnTitleClick(title.Name))">@title.Name</button>
+                        } else
                         {
                             <button class="button" id="title-filter-button" @onclick="(() => OnTitleClick(title.Name))">@title.Name</button>
                         }
+                        
+                    }
                 </div>
             </div>
         </div>
@@ -100,8 +130,5 @@
             }
         </div>
     </div>
-<div>
-
-</div>
 </body>
 
