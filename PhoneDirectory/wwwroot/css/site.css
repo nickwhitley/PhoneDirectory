@@ -151,6 +151,7 @@ a, .btn-link {
 #delete-employee-button{
     border: 1px solid red;
     color: red;
+    margin-left: 5px;
 }
 
     #delete-employee-button:hover {
@@ -158,12 +159,15 @@ a, .btn-link {
         color: #2C2F33;
     }
 
-#submit-button{
-
-}
     #submit-button:hover, #create-form-button:hover{
         background-color: lightgreen;
     }
+
+#submit-button-no-changes
+{
+    
+}
+
 .search-box {
     height: var(--height);
     font-family: var(--font-fam);
@@ -178,6 +182,10 @@ a, .btn-link {
 .error-heading {
     font-size: 34px;
     color: red;
+}
+
+.alert-danger {
+    margin-left: 5px;
 }
 
 .page-heading

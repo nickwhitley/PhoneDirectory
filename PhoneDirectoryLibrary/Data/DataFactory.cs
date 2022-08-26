@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PhoneDirectoryLibrary.Data.Interfaces;
-
+﻿
 namespace PhoneDirectoryLibrary.Data
 {
     public class DataFactory : IDataFactory
@@ -60,7 +54,6 @@ namespace PhoneDirectoryLibrary.Data
 
             if (titleLevel > 4)
             {
-
                 output = (List<EmployeeModel>)output.Where(e => e.DepartmentId == departmentId)
                                                      .Where(e => e.Title?.TitleLevel < titleLevel).ToList();
             } else
@@ -72,11 +65,13 @@ namespace PhoneDirectoryLibrary.Data
             return output;
         }
 
-        public void ClearCache()
+        public async Task ClearCache()
         {
             _employeeData.ClearCache();
             _titleData.ClearCache();
             _departmentData.ClearCache();
+
+            await Task.CompletedTask;
         }
     }
 }

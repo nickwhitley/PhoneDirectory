@@ -1,5 +1,4 @@
 
-using PhoneDirectory.Models;
 
 namespace PhoneDirectory.Pages
 {
@@ -13,9 +12,21 @@ namespace PhoneDirectory.Pages
         private string submitButtonText;
         private bool changesMade = false;
         private bool changesSaved = false;
-        private bool confirmDelete = false;
+        private bool employeeDeleted = false;
         private string deleteButtonText;
         private bool validId;
+
+        //employe property changes
+        private string ogFirstName;
+        private string ogLastName;
+        private string ogPhoneMain;
+        private string ogExtension;
+        private string ogPhoneMobile;
+        private string ogNotes;
+        private int ogTitleId;
+        private int ogDepartmentId;
+        private int ogSupId;
+        private string ogEmail;
         protected override async Task OnInitializedAsync()
         {
             var employeesList = dataFactory.Employees;
@@ -30,6 +41,19 @@ namespace PhoneDirectory.Pages
                 validId = true;
             }
 
+            //set original employee data
+            ogFirstName = employee.FirstName;
+            ogLastName = employee.LastName;
+            ogPhoneMain = employee.PhoneMain;
+            ogPhoneMobile = employee.PhoneMobile;
+            ogExtension = employee.Extension;
+            ogNotes = employee.Notes;
+            ogTitleId = employee.TitleId;
+            ogDepartmentId = employee.DepartmentId;
+            ogSupId = employee.SupId;
+            ogEmail = employee.Email;
+
+
             submitButtonText = "Submit";
             deleteButtonText = "Delete Employee";
             await base.OnInitializedAsync();
@@ -43,10 +67,32 @@ namespace PhoneDirectory.Pages
 
         private void OnInfoChange(FocusEventArgs args)
         {
-            changesMade = true;
+            changesMade = InfoHasChanged();
+            changesSaved = false;
             submitButtonText = "submit";
             PopulateAvailableSupervisors();
         }
+
+        private bool InfoHasChanged()
+        {
+            if (ogFirstName != employee.FirstName ||
+                ogLastName != employee.LastName ||
+                ogPhoneMain != employee.PhoneMain ||
+                ogExtension != employee.Extension ||
+                ogPhoneMobile != employee.PhoneMobile ||
+                ogNotes != employee.Notes ||
+                ogDepartmentId != employee.DepartmentId ||
+                ogTitleId != employee.TitleId ||
+                ogSupId != employee.SupId ||
+                ogEmail != employee.Email)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
 
         private void SaveEmployeeForm()
         {
@@ -54,27 +100,6 @@ namespace PhoneDirectory.Pages
             changesMade = false;
             submitButtonText = "Changes Saved";
             dataFactory.UpdateEmployeeAsync(employee);
-        }
-
-        private void NewEmployeePage()
-        {
-            if (!changesSaved)
-            {
-                dataFactory.ClearCache();
-            }
-
-            navManager.NavigateTo($"/Create/Employee");
-        }
-
-        private async Task ResetForm()
-        {
-            if (!changesSaved)
-            {
-                dataFactory.ClearCache();
-                await dataFactory.PopulateDataAsync();
-            }
-
-            navManager.NavigateTo($"/EmployeeDetails/{employee.Id}", forceLoad: true);
         }
 
         private async void DeleteEmployee()
@@ -86,20 +111,30 @@ namespace PhoneDirectory.Pages
             }
             else if (deleteButtonText == "Confirm Delete")
             {
-                await dataFactory.DeleteEmployeeAsync(employee);
                 deleteButtonText = "Employee Deleted!";
-                await Task.Delay(3500);
-                OpenDirectory();
+                employeeDeleted = true;
+                await dataFactory.DeleteEmployeeAsync(employee);
+                await Task.Delay(2500);
+                await OpenDirectory();
             }
         }
 
-        private void OpenDirectory()
+        private void ResetEmployee()
         {
-            if (!changesSaved)
-            {
-                dataFactory.ClearCache();
-            }
+            employee = dataFactory.Employees.First(e => e.Id == employee.Id);
+        }
 
+        private async Task OpenDirectory()
+        {
+            if(!changesSaved){
+                await dataFactory.ClearCache();
+                await dataFactory.PopulateDataAsync();
+                if (!employeeDeleted)
+                {
+                    ResetEmployee();
+                }
+            }
+            
             navManager.NavigateTo("/");
         }
     }

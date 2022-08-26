@@ -1,11 +1,9 @@
-using PhoneDirectory.Models;
 
 namespace PhoneDirectory.Pages.Create
 {
     public partial class CreateDepartment
     {
         private NewDepartmentModel newDepartment = new NewDepartmentModel();
-        private string departmentName;
         private string submitButtonText;
         protected override async Task OnInitializedAsync()
         {
@@ -19,7 +17,7 @@ namespace PhoneDirectory.Pages.Create
             {Name = newDepartment.Name};
             submitButtonText = "Department Created!";
             await Task.Delay(3500);
-            //await dataFactory.AddDepartment(departmentConvert);
+            await dataFactory.AddDepartment(departmentConvert);
             OpenDirectory();
         }
 

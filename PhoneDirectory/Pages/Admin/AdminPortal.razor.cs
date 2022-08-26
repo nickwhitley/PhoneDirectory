@@ -57,25 +57,10 @@ namespace PhoneDirectory.Pages.Admin
             navManager.NavigateTo($"EmployeeDetails/{employee.Id}");
         }
 
-        private void CreateNewEmployee()
-        {
-            navManager.NavigateTo("Create/Employee");
-        }
-
-        private void CreateNewDepartment()
-        {
-            navManager.NavigateTo("Create/Department");
-        }
-
         private async Task OnSearchInput(string text)
         {
             employeeSearchText = text;
             await ApplyFilter();
-        }
-
-        private void AdminLogout()
-        {
-            OpenDirectory();
         }
 
         private void OpenDirectory()

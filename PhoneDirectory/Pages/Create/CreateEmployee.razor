@@ -74,7 +74,7 @@
                                     {
                                         @foreach (var sup in availableSupervisors)
                                         {
-                                                <option value="@sup.Id">@sup.FirstName @sup.LastName</option>
+                                                <option value="@sup.Id">@sup.FirstName @sup.LastName (@sup.Title.Name)</option>
                                         }
                                     }
                                 </InputSelect>

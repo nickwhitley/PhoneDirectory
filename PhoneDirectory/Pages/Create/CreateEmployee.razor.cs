@@ -1,4 +1,4 @@
-using PhoneDirectory.Models;
+
 
 namespace PhoneDirectory.Pages.Create
 {
@@ -9,17 +9,7 @@ namespace PhoneDirectory.Pages.Create
         private List<DepartmentModel> Departments;
         private List<EmployeeModel> availableSupervisors = new List<EmployeeModel>();
         private string submitButtonText;
-        //may not use!!!
-        private string firstName;
-        private string lastName;
-        private string phoneMain;
-        private string phoneMobile;
-        private string extension;
-        private string notes;
-        private int titleId;
-        private int departmentId;
-        private int supervisorId;
-        private string email;
+
         protected override async Task OnInitializedAsync()
         {
             Titles = dataFactory.Titles;

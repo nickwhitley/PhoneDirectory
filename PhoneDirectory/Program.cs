@@ -1,7 +1,6 @@
 
 
-using Microsoft.AspNetCore.Rewrite;
-using Microsoft.IdentityModel.Logging;
+
 using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -15,6 +15,10 @@
             <h3 class="page-heading">Employee Details</h3>
             <div>
                 <button class="button" @onclick="(() => OpenDirectory())">Go To Directory</button>
+                @if(changesMade)
+                {
+                    <label class="alert-danger">Changes not saved!</label>
+                }
             </div>
         </div>
 
@@ -38,15 +42,15 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="last-name">Last Name</label>
-                                <InputText class="input-box" id="last-name" @bind-Value="@employee.LastName" @onfocus="((args) => OnInfoChange(args))"/>
+                                    <InputText class="input-box" id="last-name" @bind-Value="@employee.LastName" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="phone-main">Main Phone</label>
-                                <InputText class="input-box" id="phone-main" @bind-Value="@employee.PhoneMain" @onfocus="((args) => OnInfoChange(args))"/>
+                                    <InputText class="input-box" id="phone-main" @bind-Value="@employee.PhoneMain" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="extension">Extension</label>
-                                <InputText class="input-box" id="extension" @bind-Value="@employee.Extension" @onfocus="((args) => OnInfoChange(args))"/>
+                                    <InputText class="input-box" id="extension" @bind-Value="@employee.Extension" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="phone-mobile">Mobile Phone</label>
@@ -54,11 +58,11 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="email">Email</label>
-                                <InputText class="input-box" id="email-box" @bind-Value="@employee.Email" @onfocus="((args) => OnInfoChange(args))"/>
+                                    <InputText class="input-box" id="email-box" @bind-Value="@employee.Email" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="department">Department</label>
-                                <InputSelect class="input-select" id="department" @bind-Value="@employee.DepartmentId" @onfocus="((args) => OnInfoChange(args))" @onfocusout="((args) => OnInfoChange(args))">
+                                    <InputSelect class="input-select" id="department" @bind-Value="@employee.DepartmentId" @onfocus="((args) => OnInfoChange(args))" @onfocusout="((args) => OnInfoChange(args))">
                                     @foreach (var department in dataFactory.Departments)
                                     {
                                         if (department.Id == employee.DepartmentId)
@@ -74,7 +78,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="title">Title</label>
-                                <InputSelect class="input-select" id="title" @bind-Value="employee.TitleId" @onfocus="((args) => OnInfoChange(args))" @onfocusout="((args) => OnInfoChange(args))">
+                                    <InputSelect class="input-select" id="title" @bind-Value="employee.TitleId" @onfocus="((args) => OnInfoChange(args))" @onfocusout="((args) => OnInfoChange(args))">
                                     @foreach (var title in dataFactory.Titles)
                                     {
                                         if (title == employee.Title)
@@ -90,7 +94,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="supervisor">Supervisor</label>
-                                <InputSelect class="input-select" id="supervisor" @bind-Value="employee.SupId" @onfocus="((args) => OnInfoChange(args))">
+                                    <InputSelect class="input-select" id="supervisor" @bind-Value="employee.SupId" @onfocus="((args) => OnInfoChange(args))">
                                     @foreach (var supervisor in availableSupervisors)
                                         {
                                             <option value="@supervisor.Id">@supervisor.FirstName @supervisor.LastName (@supervisor.Title.Name)</option>
@@ -99,11 +103,17 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="notes">Notes</label>
-                                <InputTextArea class="input-text-area" id="notes" @bind-Value="@employee.Notes" @onfocus="((args) => OnInfoChange(args))"/>
+                                    <InputTextArea class="input-text-area" id="notes" @bind-Value="@employee.Notes" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div>
-                               <button class="button" id="submit-button" @onclick="SaveEmployeeForm">@submitButtonText</button>
-                               <button class="button" @onclick="ResetForm">Reset</button>
+                                @if(!changesMade)
+                                {
+                                    <button class="button" id="submit-button-no-changes" @onclick="SaveEmployeeForm">@submitButtonText</button>
+                                } else
+                                {
+                                            <button class="button" id="submit-button" @onclick="SaveEmployeeForm">@submitButtonText</button>
+                                }
+                               
                                <button class="button" id="delete-employee-button" @onclick="DeleteEmployee">@deleteButtonText</button>
                             </div>
                         </EditForm>
