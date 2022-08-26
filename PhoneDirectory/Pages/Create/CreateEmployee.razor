@@ -20,7 +20,7 @@
         <div class="employee-create-form-container">
             <AuthorizeView Context="Auth">
                 <Authorized>
-                    <EditForm Model="newEmployee">
+                    <EditForm Model="newEmployee" OnValidSubmit="SaveNewEmployee">
                             <DataAnnotationsValidator />
                              <ValidationSummary />
                             <div class="employee-form-item">
@@ -84,7 +84,7 @@
                                 <InputTextArea class="input-text-area" id="notes" @bind-Value="newEmployee.Notes"/>
                             </div>
                             <div>
-                               <button type="submit" class="button" id="create-form-button" @onclick="SaveNewEmployee">@submitButtonText</button>
+                               <button type="submit" class="button" id="create-form-button">@submitButtonText</button>
 
                             </div>
                         </EditForm>

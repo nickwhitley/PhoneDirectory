@@ -4,7 +4,7 @@ namespace PhoneDirectory.Pages.Create
 {
     public partial class CreateEmployee
     {
-        private NewEmployeeModel newEmployee = new NewEmployeeModel();
+        private EmployeeModel newEmployee = new EmployeeModel();
         private List<TitleModel> Titles;
         private List<DepartmentModel> Departments;
         private List<EmployeeModel> availableSupervisors = new List<EmployeeModel>();
@@ -20,22 +20,12 @@ namespace PhoneDirectory.Pages.Create
 
         private async Task SaveNewEmployee()
         {
-            var employeeConvert = new EmployeeModel()
-            {FirstName = newEmployee.FirstName, LastName = newEmployee.LastName, PhoneMain = newEmployee.PhoneMain, PhoneMobile = newEmployee.PhoneMobile, Extension = newEmployee.Extension, Notes = newEmployee.Notes, TitleId = newEmployee.TitleId, DepartmentId = newEmployee.DepartmentId, SupId = newEmployee.SupId, Email = newEmployee.Email};
-            if (newEmployee.FirstName == null)
-            {
-                submitButtonText = "Nothing to submit!";
-                await Task.Delay(2000);
-                StateHasChanged();
-                submitButtonText = "Create Employee";
-            }
-            else if (newEmployee.FirstName != null)
-            {
-                await dataFactory.AddEmployeeAsync(employeeConvert);
-                submitButtonText = "Employee Created!";
-                await Task.Delay(2000);
-                OpenDirectory();
-            }
+            submitButtonText = "Employee Created!";
+            await dataFactory.AddEmployeeAsync(newEmployee);
+
+            await Task.Delay(2000);
+            OpenDirectory();
+            
         }
 
         private void OnInfoChange(FocusEventArgs args)

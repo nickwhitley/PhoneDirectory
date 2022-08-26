@@ -16,7 +16,7 @@ namespace PhoneDirectory.Pages
         private string deleteButtonText;
         private bool validId;
 
-        //employe property changes
+        //employee property changes
         private string ogFirstName;
         private string ogLastName;
         private string ogPhoneMain;

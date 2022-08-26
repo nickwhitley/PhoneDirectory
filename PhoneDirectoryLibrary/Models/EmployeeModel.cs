@@ -25,7 +25,7 @@ namespace PhoneDirectoryLibrary.Models
         public string PhoneMobile { get; set; }
         [MinLength(3)]
         [MaxLength(5)]
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Extension can only contain numbers.")]
+        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "Extension can only contain numbers and can not begin with 0")]
         public string Extension { get; set; } = "";
         [MaxLength(130)]
         public string Notes { get; set; }

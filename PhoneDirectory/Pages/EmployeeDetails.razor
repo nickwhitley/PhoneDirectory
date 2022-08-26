@@ -33,7 +33,7 @@
                         <h1>Edit Employee</h1>    
                     </div>
                     <div class="employee-details-form">
-                        <EditForm Model="employee">
+                        <EditForm Model="employee" OnValidSubmit="SaveEmployeeForm">
                             <DataAnnotationsValidator />
                              <ValidationSummary />
                             <div class="employee-form-item">
@@ -94,7 +94,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="supervisor">Supervisor</label>
-                                    <InputSelect class="input-select" id="supervisor" @bind-Value="employee.SupId" @onfocus="((args) => OnInfoChange(args))">
+                                    <InputSelect class="input-select" id="supervisor" @bind-Value="employee.SupId" @onfocusin="((args) => OnInfoChange(args))">
                                     @foreach (var supervisor in availableSupervisors)
                                         {
                                             <option value="@supervisor.Id">@supervisor.FirstName @supervisor.LastName (@supervisor.Title.Name)</option>
@@ -108,10 +108,10 @@
                             <div>
                                 @if(!changesMade)
                                 {
-                                    <button class="button" id="submit-button-no-changes" @onclick="SaveEmployeeForm">@submitButtonText</button>
+                                    <button type="submit" class="button" id="submit-button-no-changes">@submitButtonText</button>
                                 } else
                                 {
-                                            <button class="button" id="submit-button" @onclick="SaveEmployeeForm">@submitButtonText</button>
+                                            <button type="submit" class="button" id="submit-button">@submitButtonText</button>
                                 }
                                
                                <button class="button" id="delete-employee-button" @onclick="DeleteEmployee">@deleteButtonText</button>
