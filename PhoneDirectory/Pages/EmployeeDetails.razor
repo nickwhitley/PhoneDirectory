@@ -31,63 +31,63 @@
                              <ValidationSummary />
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="first-name">First Name</label>
-                                <InputText class="input-box" id="first-name" @bind-Value="employee.FirstName"/>
+                                <InputText class="input-box" id="first-name" placeholder="@employee.FirstName" @bind-Value="tempFirstName"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="last-name">Last Name</label>
-                                <InputText class="input-box" id="last-name" @bind-Value="employee.LastName" @onchange="OnInfoChange"/>
+                                <InputText class="input-box" id="last-name" placeholder="@employee.LastName" @bind-Value="tempLastName"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="phone-main">Main Phone</label>
-                                <InputText class="input-box" id="phone-main" @bind-Value="employee.PhoneMain" @onchange="OnInfoChange"/>
+                                <InputText class="input-box" id="phone-main" placeholder="@employee.PhoneMain" @bind-Value="tempPhoneMain"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="extension">Extension</label>
-                                <InputText class="input-box" id="extension" @bind-Value="employee.Extension" @onchange="OnInfoChange"/>
+                                <InputText class="input-box" id="extension" placeholder="@employee.Extension" @bind-Value="tempExtension"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="phone-mobile">Mobile Phone</label>
-                                <InputText class="input-box" id="phone-mobile" @bind-Value="employee.PhoneMobile" @onchange="OnInfoChange"/>
+                                <InputText class="input-box" id="phone-mobile" placeholder="@employee.PhoneMobile" @bind-Value="tempPhoneMobile"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="email">Email</label>
-                                <InputText class="input-box" id="email-box" @bind-Value="employee.Email" @onchange="OnInfoChange"/>
+                                <InputText class="input-box" id="email-box" placeholder="@employee.Email" @bind-Value="tempEmail"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="department">Department</label>
-                                <InputSelect class="input-select" id="department" @bind-Value="employee.Department.Name" @onchange="OnInfoChange">
+                                <InputSelect class="input-select" id="department" @bind-Value="tempDepartmentId" @onfocusout="((args) => OnInfoChange(args))">
                                     @foreach (var department in dataFactory.Departments)
                                     {
-                                        if (department == employee.Department)
+                                        if (department.Id == employee.DepartmentId)
                                         {
-                                            <option selected value="@department.Name">@department.Name</option>
+                                            <option value="@department.Id" selected="@(department.Id == employee.DepartmentId)">@department.Name</option>
                                         }
                                         else
                                         {
-                                            <option value="@department.Name">@department.Name</option>
+                                            <option value="@department.Id">@department.Name</option>
                                         }
                                     }
                                 </InputSelect>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="title">Title</label>
-                                <InputSelect class="input-select" id="title" @bind-Value="employee.Title.Name" @onchange="OnInfoChange">
+                                <InputSelect class="input-select" id="title" @bind-Value="tempTitleId" @onfocusout="((args) => OnInfoChange(args))">
                                     @foreach (var title in dataFactory.Titles)
                                     {
                                         if (title == employee.Title)
                                         {
-                                            <option selected value="@title.Name">@title.Name</option>
+                                            <option selected value="@title.Id">@title.Name</option>
                                         }
                                         else
                                         {
-                                            <option value="@title.Name">@title.Name</option>
+                                            <option value="@title.Id">@title.Name</option>
                                         }
                                     }
                                 </InputSelect>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="supervisor">Supervisor</label>
-                                <InputSelect class="input-select" id="supervisor" @bind-Value="employee.SupId" @onchange="OnInfoChange">
+                                <InputSelect class="input-select" id="supervisor" @bind-Value="tempSupId">
                                     @foreach (var supervisor in availableSupervisors)
                                         {
                                             <option value="@supervisor.Id">@supervisor.FirstName @supervisor.LastName (@supervisor.Title.Name)</option>
@@ -96,7 +96,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="notes">Notes</label>
-                                <InputTextArea class="input-text-area" id="notes" @bind-Value="employee.Notes"/>
+                                <InputTextArea class="input-text-area" id="notes" placeholder="@employee.Notes" @bind-Value="tempNotes"/>
                             </div>
                             <div>
                                <button type="submit" class="button">Submit</button>
@@ -117,43 +117,43 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="last-name">Last Name:</label>
-                                <InputText disabled class="input-box" id="last-name" @bind-Value="employee.LastName" @onchange="OnInfoChange"/>
+                                <InputText disabled class="input-box" id="last-name" @bind-Value="employee.LastName"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="phone-main">Main Phone:</label>
-                                <InputText disabled class="input-box" id="phone-main" @bind-Value="employee.PhoneMain" @onchange="OnInfoChange"/>
+                                <InputText disabled class="input-box" id="phone-main" @bind-Value="employee.PhoneMain"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="extension">Extension:</label>
-                                <InputText disabled class="input-box" id="extension" @bind-Value="employee.Extension" @onchange="OnInfoChange"/>
+                                <InputText disabled class="input-box" id="extension" @bind-Value="employee.Extension"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="phone-mobile">Mobile Phone:</label>
-                                <InputText disabled class="input-box" id="phone-mobile" @bind-Value="employee.PhoneMobile" @onchange="OnInfoChange"/>
+                                <InputText disabled class="input-box" id="phone-mobile" @bind-Value="employee.PhoneMobile"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="email">Email:</label>
-                                <InputText disabled class="input-box" id="email" @bind-Value="employee.Email" @onchange="OnInfoChange"/>
+                                <InputText disabled class="input-box" id="email" @bind-Value="employee.Email"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="department">Department:</label>
-                                <InputSelect disabled class="input-select" id="department" @bind-Value="employee.Department.Name" @onchange="OnInfoChange">
+                                <InputSelect disabled class="input-select" id="department" @bind-Value="employee.Department">
                                     @foreach (var department in dataFactory.Departments)
                                     {
                                         if (department == employee.Department)
                                         {
-                                            <option selected value="@department.Name">@department.Name</option>
+                                            <option selected value="@department">@department.Name</option>
                                         }
                                         else
                                         {
-                                            <option value="@department.Name">@department.Name</option>
+                                            <option value="@department">@department.Name</option>
                                         }
                                     }
                                 </InputSelect>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="title">Title:</label>
-                                <InputSelect disabled class="input-select" id="title" @bind-Value="employee.Title.Name" @onchange="OnInfoChange">
+                                <InputSelect disabled class="input-select" id="title" @bind-Value="employee.Title.Name">
                                     @foreach (var title in dataFactory.Titles)
                                     {
                                         if (title == employee.Title)
@@ -169,7 +169,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="supervisor">Supervisor:</label>
-                                <InputSelect disabled class="input-select" id="supervisor" @bind-Value="employee.SupId" @onchange="OnInfoChange">
+                                <InputSelect disabled class="input-select" id="supervisor" @bind-Value="employee.SupId">
                                     @foreach (var supervisor in availableSupervisors)
                                         {
                                             <option value="@supervisor.Id">@supervisor.FirstName @supervisor.LastName (@supervisor.Title.Name)</option>
@@ -198,19 +198,18 @@
     private EmployeeModel employee;
     private List<EmployeeModel> availableSupervisors = new List<EmployeeModel>();
     private bool changesMade = false;
-    private bool createNewEmployee = false;
 
-    //new employee values
-    private string firstName;
-    private string lastName;
-    private string phoneMain;
-    private string phoneMobile;
-    private string extension;
-    private string notes;
-    private int titleId;
-    private int departmentId;
-    private int supId;
-    private string email;
+    //change values
+    private string tempFirstName;
+    private string tempLastName;
+    private string tempPhoneMain;
+    private string tempPhoneMobile;
+    private string tempExtension;
+    private string tempNotes;
+    private int tempTitleId;
+    private int tempDepartmentId;
+    private int tempSupId;
+    private string tempEmail;
 
     protected override async Task OnInitializedAsync()
     {
@@ -218,6 +217,9 @@
 
 
         employee = employeesList.First(e => e.Id == Id);
+        tempDepartmentId = employee.DepartmentId;
+        tempTitleId = employee.TitleId;
+        tempSupId = employee.SupId;
         availableSupervisors = PopulateAvailableSupervisors();
 
 
@@ -227,36 +229,29 @@
 
     private List<EmployeeModel> PopulateAvailableSupervisors()
     {
-        var output = dataFactory.Employees;
-        if(employee.Title == null)
-        {
-            output = output.Where(e => e.Department == employee.Department)
-                                                .Where(e => e.Title?.TitleLevel >= 4)
-                                                .Where(e => e.Title?.TitleLevel < 7).ToList();
-        }else if(employee.Title?.TitleLevel > 4) 
-        {
-            output = output.Where(e => e.Department == employee.Department)
-                                                .Where(e => e.Title?.TitleLevel >= 4)
-                                                .Where(e => e.Title?.TitleLevel < employee.Title.TitleLevel).ToList();
-        } else 
-        {
-            int? titleLevel = employee.Title?.TitleLevel;
-            output = output.Where(e => e.Department == employee.Department)
-                            .Where(e => e.Title?.TitleLevel == (employee.Title?.TitleLevel - 1)).ToList();
-        }
-        return output;
+        availableSupervisors = dataFactory.GetAvailableSupervisors(tempTitleId, tempDepartmentId);
 
+        return availableSupervisors;
     }
 
-    private void OnInfoChange()
+    private void OnInfoChange(FocusEventArgs args)
     {
         changesMade = true;
-        StateHasChanged();
+        PopulateAvailableSupervisors();
     }
 
     private void SaveEmployeeForm()
     {
+        if(ConfirmSave())
+        {
+
+        }
+
         //dataFactory.UpdateEmployeeAsync(employee);
+    }
+
+    private bool ConfirmSave(){
+        return false;
     }
 
     private void NewEmployeePage()

@@ -49,7 +49,8 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="department">Department</label>
-                                <InputSelect class="input-select" id="department" @bind-Value="newEmployee.DepartmentId">
+                                <InputSelect class="input-select" id="department" @bind-Value="newEmployee.DepartmentId" 
+                                                @onfocusout="((args) => OnInfoChange(args))">
                                     @foreach (var department in Departments)
                                     {
                                             <option value="@department.Id">@department.Name</option>
@@ -58,7 +59,8 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="title">Title</label>
-                                <InputSelect class="input-select" id="title" @bind-Value="newEmployee.TitleId">
+                                <InputSelect class="input-select" id="title" @bind-Value="newEmployee.TitleId" 
+                                                @onfocusout="((args) => OnInfoChange(args))">
                                     @foreach (var title in Titles)
                                     {
                                                 <option value="@title.Id">@title.Name</option>
@@ -138,15 +140,16 @@
         OpenDirectory();
     }
 
-    private void DepartmentTitleSelected()
+    private void OnInfoChange(FocusEventArgs args)
     {
-        
         if(newEmployee.TitleId != 0 && newEmployee.DepartmentId != 0)
         {
             availableSupervisors = dataFactory.GetAvailableSupervisors(newEmployee.TitleId, newEmployee.DepartmentId);
-            newEmployee.SupId = availableSupervisors[0].Id;
+            if(availableSupervisors != null){
+                newEmployee.SupId = availableSupervisors[0].Id;
+            }
+            
         }
-        
     }
 
     private void OpenDirectory()

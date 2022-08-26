@@ -395,6 +395,11 @@ employee-list-secondary-info {
         font-weight: 600;
     }
 
+    .input-box::placeholder {
+        color: #2d3748;
+        font-size: 18px;
+    }
+
 .invalid {
     border: 2px solid #FF9494;
     background-color: #FF9494;
