@@ -66,5 +66,12 @@ namespace PhoneDirectoryLibrary.Data
 
             return output;
         }
+
+        public void ClearCache()
+        {
+            _employeeData.ClearCache();
+            _titleData.ClearCache();
+            _departmentData.ClearCache();
+        }
     }
 }

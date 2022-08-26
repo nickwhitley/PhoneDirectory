@@ -3,6 +3,8 @@
 @inject IDataFactory dataFactory
 @inject NavigationManager navManager
 
+@using Models;
+
 <head>
     <PageTitle>Employee Details</PageTitle>
     <link rel="stylesheet" href="~/css/site.css"/>
@@ -26,36 +28,36 @@
                         <h1>Edit Employee</h1>    
                     </div>
                     <div class="employee-details-form">
-                        <EditForm Model="employee" OnValidSubmit="SaveEmployeeForm">
+                        <EditForm Model="employee">
                             <DataAnnotationsValidator />
                              <ValidationSummary />
                             <div class="employee-form-item">
-                                <label class="employee-form-label" for="first-name">First Name</label>
-                                <InputText class="input-box" id="first-name" placeholder="@employee.FirstName" @bind-Value="tempFirstName"/>
+                                <label class="employee-form-label" for="first-name" >First Name</label>
+                                <InputText class="input-box" id="first-name" @bind-Value="employee.FirstName" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="last-name">Last Name</label>
-                                <InputText class="input-box" id="last-name" placeholder="@employee.LastName" @bind-Value="tempLastName"/>
+                                <InputText class="input-box" id="last-name" @bind-Value="@employee.LastName" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="phone-main">Main Phone</label>
-                                <InputText class="input-box" id="phone-main" placeholder="@employee.PhoneMain" @bind-Value="tempPhoneMain"/>
+                                <InputText class="input-box" id="phone-main" @bind-Value="@employee.PhoneMain" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="extension">Extension</label>
-                                <InputText class="input-box" id="extension" placeholder="@employee.Extension" @bind-Value="tempExtension"/>
+                                <InputText class="input-box" id="extension" @bind-Value="@employee.Extension" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="phone-mobile">Mobile Phone</label>
-                                <InputText class="input-box" id="phone-mobile" placeholder="@employee.PhoneMobile" @bind-Value="tempPhoneMobile"/>
+                                <InputText class="input-box" id="phone-mobile" @bind-Value="@employee.PhoneMobile" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="email">Email</label>
-                                <InputText class="input-box" id="email-box" placeholder="@employee.Email" @bind-Value="tempEmail"/>
+                                <InputText class="input-box" id="email-box" @bind-Value="@employee.Email" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="department">Department</label>
-                                <InputSelect class="input-select" id="department" @bind-Value="tempDepartmentId" @onfocusout="((args) => OnInfoChange(args))">
+                                <InputSelect class="input-select" id="department" @bind-Value="@employee.DepartmentId" @onfocus="((args) => OnInfoChange(args))" @onfocusout="((args) => OnInfoChange(args))">
                                     @foreach (var department in dataFactory.Departments)
                                     {
                                         if (department.Id == employee.DepartmentId)
@@ -71,7 +73,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="title">Title</label>
-                                <InputSelect class="input-select" id="title" @bind-Value="tempTitleId" @onfocusout="((args) => OnInfoChange(args))">
+                                <InputSelect class="input-select" id="title" @bind-Value="employee.TitleId" @onfocus="((args) => OnInfoChange(args))" @onfocusout="((args) => OnInfoChange(args))">
                                     @foreach (var title in dataFactory.Titles)
                                     {
                                         if (title == employee.Title)
@@ -87,7 +89,7 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="supervisor">Supervisor</label>
-                                <InputSelect class="input-select" id="supervisor" @bind-Value="tempSupId">
+                                <InputSelect class="input-select" id="supervisor" @bind-Value="employee.SupId" @onfocus="((args) => OnInfoChange(args))">
                                     @foreach (var supervisor in availableSupervisors)
                                         {
                                             <option value="@supervisor.Id">@supervisor.FirstName @supervisor.LastName (@supervisor.Title.Name)</option>
@@ -96,11 +98,11 @@
                             </div>
                             <div class="employee-form-item">
                                 <label class="employee-form-label" for="notes">Notes</label>
-                                <InputTextArea class="input-text-area" id="notes" placeholder="@employee.Notes" @bind-Value="tempNotes"/>
+                                <InputTextArea class="input-text-area" id="notes" @bind-Value="@employee.Notes" @onfocus="((args) => OnInfoChange(args))"/>
                             </div>
                             <div>
-                               <button type="submit" class="button">Submit</button>
-                               <button type="reset" class="button">Reset</button>
+                               <button class="button" @onclick="SaveEmployeeForm">@submitButtonText</button>
+                               <button class="button" @onclick="ResetForm">Reset</button>
                             </div>
                         </EditForm>
                     </div>
@@ -197,19 +199,10 @@
 
     private EmployeeModel employee;
     private List<EmployeeModel> availableSupervisors = new List<EmployeeModel>();
+    private string submitButtonText;
     private bool changesMade = false;
+    private bool changesSaved = false;
 
-    //change values
-    private string tempFirstName;
-    private string tempLastName;
-    private string tempPhoneMain;
-    private string tempPhoneMobile;
-    private string tempExtension;
-    private string tempNotes;
-    private int tempTitleId;
-    private int tempDepartmentId;
-    private int tempSupId;
-    private string tempEmail;
 
     protected override async Task OnInitializedAsync()
     {
@@ -217,10 +210,8 @@
 
 
         employee = employeesList.First(e => e.Id == Id);
-        tempDepartmentId = employee.DepartmentId;
-        tempTitleId = employee.TitleId;
-        tempSupId = employee.SupId;
         availableSupervisors = PopulateAvailableSupervisors();
+        submitButtonText = "Submit";
 
 
 
@@ -229,7 +220,7 @@
 
     private List<EmployeeModel> PopulateAvailableSupervisors()
     {
-        availableSupervisors = dataFactory.GetAvailableSupervisors(tempTitleId, tempDepartmentId);
+        availableSupervisors = dataFactory.GetAvailableSupervisors(employee.TitleId, employee.DepartmentId);
 
         return availableSupervisors;
     }
@@ -237,27 +228,36 @@
     private void OnInfoChange(FocusEventArgs args)
     {
         changesMade = true;
+        submitButtonText = "submit";
         PopulateAvailableSupervisors();
     }
 
     private void SaveEmployeeForm()
     {
-        if(ConfirmSave())
-        {
+        changesSaved = true;
+        changesMade = false;
+        submitButtonText = "Changes Saved";
 
-        }
-
-        //dataFactory.UpdateEmployeeAsync(employee);
-    }
-
-    private bool ConfirmSave(){
-        return false;
+        dataFactory.UpdateEmployeeAsync(employee);
     }
 
     private void NewEmployeePage()
     {
+        if(!changesSaved)
+        {
+            dataFactory.ClearCache();
+        }
         navManager.NavigateTo($"/Create/Employee");
+    }
 
+    private async Task ResetForm()
+    {
+        if (!changesSaved)
+        {
+            dataFactory.ClearCache();
+            await dataFactory.PopulateDataAsync();
+        }
+        navManager.NavigateTo($"/EmployeeDetails/{employee.Id}", forceLoad: true);
     }
 
     private void OpenSupervisorPage()
@@ -267,6 +267,10 @@
 
     private void OpenDirectory()
     {
+        if (!changesSaved)
+        {
+            dataFactory.ClearCache();
+        }
         navManager.NavigateTo("/");
     }
 

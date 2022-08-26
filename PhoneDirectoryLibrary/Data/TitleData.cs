@@ -40,5 +40,10 @@ namespace PhoneDirectoryLibrary.Data
 
             return cacheOutput;
         }
+
+        public void ClearCache()
+        {
+            _cache.Remove(cacheName);
+        }
     }
 }

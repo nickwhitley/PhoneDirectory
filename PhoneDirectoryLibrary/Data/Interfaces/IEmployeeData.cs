@@ -6,5 +6,6 @@
         Task<List<EmployeeModel>> GetEmployeesAsync(IDataFactory dataFactory);
         Task UpdateEmployeeAsync(EmployeeModel employee);
         Task AddEmployeeAsync(EmployeeModel employee);
+        void ClearCache();
     }
 }

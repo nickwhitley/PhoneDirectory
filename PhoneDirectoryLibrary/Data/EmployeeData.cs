@@ -119,5 +119,10 @@ namespace PhoneDirectoryLibrary.Data
 
             await _database.SaveDataAsync(storedProc, new { @id = employee.Id });
         }
+
+        public void ClearCache()
+        {
+            _cache.Remove(cacheName);
+        }
     }
 }

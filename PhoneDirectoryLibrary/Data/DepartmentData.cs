@@ -68,5 +68,10 @@ namespace PhoneDirectoryLibrary.Data
                     @name = department.Name
                 });
         }
+
+        public void ClearCache()
+        {
+            _cache.Remove(cacheName);
+        }
     }
 }
