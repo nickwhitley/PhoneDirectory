@@ -18,12 +18,12 @@ namespace PhoneDirectoryLibrary.Models
         [Required]
         [MaxLength(20)]
         [Phone]
-        [RegularExpression(@"^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$", ErrorMessage = "Invalid phone number format.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone numbers must be 10 digits and cannot contain special characters")]
         public string PhoneMain { get; set; }
         [Required]
         [MaxLength(20)]
         [Phone]
-        
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone numbers must be 10 digits and cannot contain special characters")]
         public string PhoneMobile { get; set; }
         [MinLength(3)]
         [MaxLength(5)]
